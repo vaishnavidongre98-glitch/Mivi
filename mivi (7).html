@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="plum">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mivi · your cycle, understood</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf7fa;--card:#fff;--tx:#2b2230;--mu:#7b7183;--ln:#eee4ef;--p:#8a4f8f;--pd:#5f3263;--pp:#f4e8f5;--ac:#f0a37f;--r:20px}
+html[data-theme=rose]{--bg:#fff6f8;--ln:#f5dfe6;--p:#c4466d;--pd:#8e2548;--pp:#fde5ec}
+html[data-theme=ocean]{--bg:#f4f9fd;--ln:#dfeaf3;--p:#3f79ab;--pd:#27567f;--pp:#e1eef8;--ac:#7fc4d9}
+html[data-theme=sage]{--bg:#f5faf6;--ln:#e0ede4;--p:#488564;--pd:#2f6246;--pp:#e3f1e8;--ac:#e7c26c}
+html[data-theme=sunset]{--bg:#fff8f2;--ln:#f4e2d4;--p:#c2623a;--pd:#8f4120;--pp:#fde9dc;--ac:#f2c14e}
+html[data-theme=galaxy]{--bg:#14122b;--card:#201d3d;--tx:#ece8ff;--mu:#a9a3d6;--ln:#3a3570;--p:#9a88ff;--pd:#cfc6ff;--pp:#312d63;--ac:#ffb38a}
+html.dark{--bg:#17131c;--card:#221c29;--tx:#f1ebf4;--mu:#aaa1b3;--ln:#3a3043;--pp:#37293d;--pd:#e3c3e8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 "DM Sans","Noto Sans Devanagari",system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,"Noto Sans Devanagari",Georgia,serif;margin:0 0 8px;letter-spacing:-.01em}h1{font-size:clamp(28px,4vw,40px);line-height:1.15}h2{font-size:21px}h3{font-size:16px}p{margin:0 0 10px}
+.mu{color:var(--mu);font-size:13px}.hide{display:none!important}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--ln);border-radius:12px;background:var(--bg)}
+label.f{display:block;font-size:12px;font-weight:700;margin:14px 0 6px}
+.btn{border:0;border-radius:12px;padding:11px 17px;background:var(--p);color:#fff;font-weight:700}.btn.s{background:var(--pp);color:var(--pd)}.btn.sm{padding:7px 11px;font-size:12px}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+nav{position:sticky;top:0;height:100vh;padding:22px 14px;border-right:1px solid var(--ln);background:var(--card);overflow:auto}
+.logo{font:700 30px Fraunces,serif;color:var(--p);padding:0 10px 18px}.logo small{display:block;font:400 11px "DM Sans";color:var(--mu)}
+nav button{display:flex;gap:10px;width:100%;border:0;background:none;padding:10px 12px;border-radius:12px;text-align:left;color:var(--mu);font-weight:500}
+nav button.on,nav button:hover{background:var(--pp);color:var(--pd)}
+main{padding:30px 5% 60px;max-width:1050px;width:100%}
+.v{display:none}.v.on{display:block}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:var(--r);padding:20px;margin-bottom:14px;min-width:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.g2>.card,.g3>.card{margin:0}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.hero{display:grid;grid-template-columns:230px 1fr;gap:26px;align-items:center;background:linear-gradient(135deg,var(--pp),var(--card) 70%)}
+.ring{position:relative;width:210px;height:210px}.ring svg{transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.ring b{font:700 56px/1 Fraunces,serif;color:var(--pd)}
+.pill{display:inline-block;background:var(--pp);color:var(--pd);border-radius:99px;padding:4px 11px;font-size:12px;font-weight:700;margin:0 5px 5px 0}
+.chips{display:flex;flex-wrap:wrap;gap:7px}.chips label{position:relative}.chips input{position:absolute;opacity:0;width:0}
+.chips span,.chip{display:inline-block;border:1px solid var(--ln);border-radius:99px;padding:7px 13px;background:var(--card);font-size:13px;cursor:pointer}
+.chips input:checked+span,.chip.on{background:var(--p);color:#fff;border-color:var(--p)}
+.water{display:flex;gap:6px;margin:10px 0}.cup{width:28px;height:36px;border:2px solid var(--ln);border-radius:6px 6px 11px 11px;background:none}.cup.on{background:#8cc2ee;border-color:#5fa5dc}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.cal>div{text-align:center;font-size:11px;color:var(--mu);font-weight:700}
+.cal button{min-height:54px;border:1px solid var(--ln);border-radius:12px;background:var(--card);position:relative;font-size:13px}
+.cal button.per{background:var(--p);color:#fff;border-color:var(--p)}.cal button.pre{border:2px dashed var(--p);background:var(--pp)}
+.cal button.fer{background:#e2f4e8;border-color:#7fc59a;color:#234}.cal button.ovu{background:#bfe6cd;border:2px solid #3e9a66;color:#123;font-weight:700}
+.cal button.td{box-shadow:0 0 0 2px var(--ac)}.cal button i{position:absolute;bottom:5px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:var(--ac)}
+.row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--ln)}.row:last-child{border:0}
+.bars{display:flex;align-items:end;gap:9px;height:130px;border-bottom:1px solid var(--ln);padding-top:10px}.bars div{flex:1;background:linear-gradient(var(--ac),var(--p));border-radius:8px 8px 2px 2px;position:relative;min-height:6px}.bars small{position:absolute;top:-17px;width:100%;text-align:center;font-size:11px;color:var(--mu)}
+.note{border-left:4px solid var(--ac);background:var(--pp);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:13px}
+.chat{height:340px;overflow:auto;background:var(--bg);border-radius:14px;padding:12px;margin-bottom:10px;border:1px solid var(--ln)}
+.m{max-width:88%;padding:10px 13px;border-radius:14px;margin:7px 0;white-space:pre-wrap;font-size:14px}.m.b{background:var(--pp)}.m.u{background:var(--p);color:#fff;margin-left:auto}
+.bub{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}.bub button{aspect-ratio:1;border-radius:50%;border:0;background:radial-gradient(circle at 30% 30%,#fff9,var(--ac));transition:.2s}.bub button.x{transform:scale(0);opacity:0}
+.bc{width:130px;height:130px;margin:18px auto;border-radius:50%;background:radial-gradient(var(--pp),var(--p));transform:scale(.6);transition:transform 4s ease-in-out}.bc.in{transform:scale(1.1)}
+.box{text-align:center;padding:18px;background:var(--pp);border-radius:16px}
+details{border-bottom:1px solid var(--ln);padding:11px 0}summary{cursor:pointer;font-weight:700}details p{margin:8px 0 0;color:var(--mu)}
+.sw{display:flex;gap:9px;flex-wrap:wrap}.sw button{width:38px;height:38px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 2px var(--ln)}.sw button.on{box-shadow:0 0 0 3px var(--p)}
+#auth{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:20px;overflow:auto;background:radial-gradient(circle at 12% 8%,color-mix(in srgb,var(--p) 22%,transparent),transparent 45%),radial-gradient(circle at 90% 90%,color-mix(in srgb,var(--ac) 28%,transparent),transparent 45%),var(--bg)}#auth .card{max-width:420px;width:100%;padding:32px}.pin{letter-spacing:.3em}.err{color:#b04a4a;font-size:13px;min-height:18px;margin:10px 0 4px}
+#ob{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;padding:20px;overflow:auto}#ob .card{max-width:430px;width:100%;text-align:center}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--pd);color:#fff;padding:10px 16px;border-radius:12px;font-size:13px;opacity:0;transition:.3s;pointer-events:none;z-index:60}.toast.on{opacity:1}
+@media(max-width:800px){.app{grid-template-columns:1fr}nav{position:fixed;bottom:0;top:auto;height:auto;width:100%;display:flex;overflow-x:auto;padding:6px;border:0;border-top:1px solid var(--ln);z-index:20}nav .logo{display:none}nav button{flex:0 0 auto;flex-direction:column;align-items:center;font-size:11px;padding:7px 10px;gap:2px}main{padding:22px 16px 100px}.g2,.g3,.hero{grid-template-columns:1fr}.ring{margin:auto}}
+body.lg{font-size:18px}.fabs{position:fixed;right:16px;bottom:20px;display:flex;gap:8px;z-index:30}.fabs button{border:0;border-radius:99px;padding:11px 16px;background:var(--p);color:#fff;font-weight:700;box-shadow:0 6px 18px #0003}.fabs button.on{background:#b04a4a}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.mg button{aspect-ratio:1;border:0;border-radius:14px;background:var(--p);color:#fff;font-size:26px}.mg button.on{background:var(--pp)}.mg button.ok{background:#bfe6cd}
+@media(max-width:800px){.fabs{bottom:78px}}
+/* ===== Aesthetic layer ===== */
+:root{--glass:rgba(255,255,255,.72);--g1:linear-gradient(135deg,var(--p),color-mix(in srgb,var(--p) 55%,var(--ac)));--sh:0 10px 34px color-mix(in srgb,var(--p) 14%,transparent)}
+html.dark,html[data-theme=galaxy]{--glass:rgba(34,28,41,.68)}html[data-theme=galaxy]{--glass:rgba(32,29,61,.68)}
+body{background:radial-gradient(circle at 8% 4%,color-mix(in srgb,var(--p) 16%,transparent),transparent 42%),radial-gradient(circle at 96% 28%,color-mix(in srgb,var(--ac) 20%,transparent),transparent 40%),radial-gradient(circle at 30% 100%,color-mix(in srgb,var(--p) 11%,transparent),transparent 45%),var(--bg);background-attachment:fixed}
+h1{background:var(--g1);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;letter-spacing:-.02em}
+h2,h3{color:var(--pd)}
+.card{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,var(--p) 12%,var(--ln));border-radius:26px;padding:24px;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 16px 42px color-mix(in srgb,var(--p) 20%,transparent)}
+nav{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-right:1px solid color-mix(in srgb,var(--p) 12%,var(--ln))}
+.logo{background:var(--g1);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:34px}.logo:after{content:" ✿";-webkit-text-fill-color:var(--ac)}
+nav button{border-radius:99px;transition:.2s}nav button span{width:22px;text-align:center}nav button.on{background:var(--g1);color:#fff;box-shadow:0 6px 16px color-mix(in srgb,var(--p) 30%,transparent)}nav button:hover:not(.on){transform:translateX(3px)}
+.btn{background:var(--g1);border-radius:99px;padding:11px 20px;box-shadow:0 6px 16px color-mix(in srgb,var(--p) 28%,transparent);transition:.2s}.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px color-mix(in srgb,var(--p) 34%,transparent)}
+.btn.s{background:var(--pp);color:var(--pd);box-shadow:none}
+input,select,textarea{border-radius:14px;background:color-mix(in srgb,var(--card) 70%,transparent);transition:border-color .2s,box-shadow .2s}input:focus,select:focus,textarea:focus{border-color:var(--p);box-shadow:0 0 0 4px color-mix(in srgb,var(--p) 14%,transparent);outline:0}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,color-mix(in srgb,var(--p) 14%,var(--card)),var(--glass) 70%);padding:30px}
+.hero:before{content:"";position:absolute;right:-60px;top:-70px;width:240px;height:240px;border-radius:50%;background:radial-gradient(color-mix(in srgb,var(--ac) 45%,transparent),transparent 70%)}
+.hero>*{position:relative}.ring svg{filter:drop-shadow(0 6px 14px color-mix(in srgb,var(--p) 35%,transparent))}.ring b{font-size:62px}
+.pill{background:color-mix(in srgb,var(--p) 13%,var(--card));border:1px solid color-mix(in srgb,var(--p) 18%,transparent)}
+.chips span,.chip{border-radius:99px;transition:.18s}.chips span:hover,.chip:hover{border-color:var(--p);transform:translateY(-1px)}
+.chips input:checked+span,.chip.on{background:var(--g1);border-color:transparent;box-shadow:0 4px 12px color-mix(in srgb,var(--p) 28%,transparent)}
+.cup{border-radius:8px 8px 14px 14px;transition:.2s}.cup.on{background:linear-gradient(#bfe3ff,#6fb4ec);border-color:#5fa5dc}.cup:hover{transform:translateY(-2px)}
+.cal button{border-radius:14px;background:color-mix(in srgb,var(--card) 80%,transparent);transition:.15s}.cal button:hover{transform:scale(1.07);border-color:var(--p);z-index:1}.cal button.per{background:var(--g1)}
+.note{background:linear-gradient(90deg,var(--pp),transparent);border-radius:14px}
+.m{border-radius:18px}.m.u{background:var(--g1)}.m.b{background:var(--pp)}.chat{background:color-mix(in srgb,var(--bg) 70%,transparent);border-radius:20px}
+.box{background:linear-gradient(135deg,var(--pp),color-mix(in srgb,var(--ac) 22%,var(--card)));border-radius:20px;font-family:Fraunces,serif;font-size:17px;padding:22px}
+.bub button{box-shadow:inset -4px -6px 12px #0001,0 4px 10px color-mix(in srgb,var(--ac) 40%,transparent)}
+.mg button{background:var(--g1);border-radius:16px;transition:transform .2s}.mg button:hover{transform:scale(1.05)}
+.bars div{background:linear-gradient(var(--ac),var(--p));border-radius:10px 10px 3px 3px}
+.row{border-color:color-mix(in srgb,var(--p) 10%,var(--ln))}
+details{transition:.2s}details[open]{background:linear-gradient(90deg,var(--pp),transparent);border-radius:14px;padding-left:12px}
+.v.on{animation:rise .35s ease}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.fabs button{background:var(--g1);backdrop-filter:blur(8px)}.fabs button.on{background:#b04a4a}
+#ob .card{padding:34px;text-align:center}#ob h1{font-size:34px}.toast{border-radius:99px;background:var(--g1)}
+@media(max-width:800px){nav{border-radius:24px 24px 0 0;border-top:1px solid var(--ln)}nav button.on{box-shadow:none}.card{padding:18px;border-radius:22px}}
+#intro{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;overflow:auto;background:radial-gradient(circle at 18% 14%,#ffd6e4,transparent 50%),radial-gradient(circle at 86% 82%,#ffe1d0,transparent 50%),radial-gradient(circle at 84% 8%,#f5d6f6,transparent 45%),#fff1f5;color:#5b2a45}
+.ibox{position:relative;max-width:520px;text-align:center;z-index:2;animation:rise .9s ease}
+.bloom{width:190px;height:190px;filter:drop-shadow(0 14px 24px #ee6f9c55);animation:sway 7s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(6deg) translateY(-8px)}}
+.ilogo{font:700 22px Fraunces,serif;color:#d6477a}
+#intro h1{background:linear-gradient(135deg,#d6477a,#f08a5d);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:clamp(34px,7vw,52px);margin:8px 0 14px}
+#intro p{color:#7a4a60;font-size:16px;line-height:1.7}
+.ichips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 26px}.ichips span{background:#fffc;border:1px solid #f7c9d8;border-radius:99px;padding:8px 14px;font-size:13px;color:#8a3b5e}
+.ibtn{border:0;border-radius:99px;padding:16px 34px;font:700 17px "DM Sans",sans-serif;color:#fff;background:linear-gradient(135deg,#e2538a,#f39a6b);box-shadow:0 12px 28px #e2538a55;animation:pulse 2.6s ease-in-out infinite;transition:transform .2s}.ibtn:hover{transform:translateY(-2px)}
+@keyframes pulse{50%{box-shadow:0 12px 40px #e2538a88}}
+#intro small{display:block;margin-top:16px;color:#a2738a}
+.petals span{position:absolute;bottom:-40px;opacity:0;animation:floatUp linear infinite}
+@keyframes floatUp{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.85}100%{transform:translateY(-115vh) rotate(200deg);opacity:0}}
+html:not(.dark):not([data-theme=galaxy]) #auth{background:radial-gradient(circle at 18% 14%,#ffd6e4,transparent 50%),radial-gradient(circle at 86% 82%,#ffe1d0,transparent 50%),#fff1f5}
+@media(prefers-reduced-motion:reduce){.bloom,.ibtn,.ibox{animation:none}.petals{display:none}}
+/* ===== Custom theme + inner beauty ===== */
+html[data-theme=custom]{--p:var(--cp,#e2538a);--ac:var(--ca,#f5a85f);--pd:color-mix(in srgb,var(--p) 62%,#000);--pp:color-mix(in srgb,var(--p) 14%,#fff);--bg:color-mix(in srgb,var(--p) 5%,#fff);--ln:color-mix(in srgb,var(--p) 16%,#fff)}
+html.dark[data-theme=custom]{--pd:color-mix(in srgb,var(--p) 55%,#fff);--pp:color-mix(in srgb,var(--p) 24%,#17131c);--bg:#17131c;--ln:color-mix(in srgb,var(--p) 22%,#17131c)}
+input[type=color]{padding:3px;height:46px;cursor:pointer;border-radius:14px}
+.deco span{position:fixed;z-index:0;pointer-events:none;opacity:.2;animation:bob 8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-16px) rotate(8deg)}}
+main{position:relative;z-index:1}
+.v>h1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.v>h1+p.mu{font-size:15px;margin-bottom:18px}
+.stat{text-align:center;padding:18px 12px}.stat span{display:block;font-size:32px;margin-bottom:2px}.stat b{font:700 30px Fraunces,serif;color:var(--pd)}.stat small{display:block;color:var(--mu);font-size:12px}
+nav button:hover span{transform:scale(1.25) rotate(-8deg)}nav button span{transition:transform .2s;display:inline-block}
+.card h2,.card h3{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card>h2:first-child{padding-bottom:10px;border-bottom:2px dotted color-mix(in srgb,var(--p) 22%,transparent);margin-bottom:14px}
+.chips span{font-size:14px}
+.cal button.td{animation:tdp 2.4s ease-in-out infinite}@keyframes tdp{50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--ac) 40%,transparent)}}
+summary{list-style:none}summary::-webkit-details-marker{display:none}summary:after{content:"＋";float:right;color:var(--p)}details[open] summary:after{content:"－"}
+@media(prefers-reduced-motion:reduce){.deco span,.cal button.td{animation:none}}
+.topbar{display:flex;justify-content:flex-end;margin-bottom:10px;min-height:38px}
+.avatar{width:84px;height:84px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;font:700 38px Fraunces,serif;color:#fff;background:var(--g1);box-shadow:0 10px 24px color-mix(in srgb,var(--p) 30%,transparent)}
+.cal.mini{gap:4px}.cal.mini button{min-height:38px;font-size:12px;border-radius:10px}
+/* ===== Colourful calendar ===== */
+.cal button{color:var(--tx)}.cal button b{font-weight:600}
+.cal button em{position:absolute;top:2px;right:4px;font-size:11px;font-style:normal;line-height:1}
+.cal button u{position:absolute;bottom:2px;left:0;right:0;font-size:13px;text-decoration:none;line-height:1}
+.cal.mini button em{font-size:9px;top:1px;right:2px}.cal.mini button u{font-size:10px}
+.cal button.p-mens{background:#ffe0e8;color:#5b2a45}.cal button.p-foll{background:#e6f4ff;color:#27456a}.cal button.p-lut{background:#efe6ff;color:#46316b}.cal button.p-fert{background:#d9f2e2;color:#1f4a33}.cal button.p-ovu{color:#5a3b00}
+.cal button.we b{color:var(--p)}
+.cal button.pre{background:var(--pp);border:2px dashed var(--p);color:var(--pd)}
+.cal button.fer{background:#d9f2e2;border:1px solid #7fc59a;color:#1f4a33}
+.cal button.ovu{background:linear-gradient(135deg,#ffe58a,#ffc2d6);border:2px solid #f0a37f;color:#5a3b00}
+.cal button.per{background:var(--g1);color:#fff;border-color:transparent;box-shadow:0 4px 10px color-mix(in srgb,var(--p) 30%,transparent)}.cal button.per b{color:#fff}
+.cal button.td{box-shadow:0 0 0 3px var(--ac)}
+#mt{background:var(--g1);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:26px}
+.leg{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12px;margin-top:16px}.leg span{display:inline-flex;align-items:center;gap:6px}.leg i{width:15px;height:15px;border-radius:5px;display:inline-block;border:1px solid var(--ln)}
+.v>h1,#auth h1{background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--p)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="intro" class="hide"><div class="petals" id="petals" aria-hidden="true"></div>
+<select class="langsel" onchange="setLang(this.value)" aria-label="Language" style="position:absolute;top:16px;right:16px;width:auto;z-index:3"><option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option><option value="es">Español</option><option value="fr">Français</option></select>
+<div class="ibox">
+<svg class="bloom" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="bpg" cx=".5" cy=".25" r=".85"><stop offset="0" stop-color="#ffdce8"/><stop offset="1" stop-color="#ee6f9c"/></radialGradient><radialGradient id="bcg"><stop offset="0" stop-color="#fff6d6"/><stop offset="1" stop-color="#f5a85f"/></radialGradient></defs><g transform="translate(100 100)"><ellipse cx="0" cy="-48" rx="22" ry="44" fill="url(#bpg)" opacity=".92" transform="rotate(0)"/><ellipse cx="0" cy="-48" rx="22" ry="44" fill="url(#bpg)" opacity=".92" transform="rotate(45)"/><ellipse cx="0" cy="-48" rx="22" ry="44" fill="url(#bpg)" opacity=".92" transform="rotate(90)"/><ellipse cx="0" cy="-48" rx="22" ry="44" fill="url(#bpg)" opacity=".92" transform="rotate(135)"/><ellipse cx="0" cy="-48" rx="22" ry="44" fill="url(#bpg)" opacity=".92" transform="rotate(180)"/><ellipse cx="0" cy="-48" rx="22" ry="44" fill="url(#bpg)" opacity=".92" transform="rotate(225)"/><ellipse cx="0" cy="-48" rx="22" ry="44" fill="url(#bpg)" opacity=".92" transform="rotate(270)"/><ellipse cx="0" cy="-48" rx="22" ry="44" fill="url(#bpg)" opacity=".92" transform="rotate(315)"/><circle r="21" fill="url(#bcg)"/></g></svg>
+<div class="ilogo">Mivi</div>
+<h1>Begin your journey with Mivi</h1>
+<p>Your gentle companion for every cycle, every mood and every day of the month. Cramps, cravings, big feelings: you are never alone in this. 💗</p>
+<div class="ichips"><span>🩸 Track your cycle</span><span>🌙 Understand your body</span><span>🫧 Calm your mood</span><span>💬 Ask anything</span></div>
+<button class="ibtn" onclick="beginJourney()">Begin your journey 🌸</button>
+<small>Private by design. Everything stays on your device.</small>
+</div></div>
+<div id="auth" class="hide"><div class="card">
+ <div class="logo" style="padding:0;text-align:center">Mivi</div>
+ <h1 id="at" style="text-align:center">Welcome</h1><p class="mu" id="as" style="text-align:center"></p>
+ <div id="lf" class="hide"><label class="f" for="lp">Your PIN</label><input id="lp" class="pin" type="password" inputmode="numeric" maxlength="6" autocomplete="current-password" placeholder="••••" onkeydown="if(event.key==='Enter')login()">
+  <label class="chips" style="margin-top:12px"><input type="checkbox" id="lr"><span>Remember me on this device</span></label>
+  <button class="btn" style="width:100%;margin-top:16px" onclick="login()">Log in 🌸</button><div style="text-align:center"><button class="btn s sm" style="margin-top:12px" onclick="forgot()">Forgot PIN?</button></div></div>
+ <div id="sf"><label class="f" for="au_n">Your name or nickname</label><input id="au_n" maxlength="30" placeholder="e.g. Riya" autocomplete="off"><label class="f" for="au_a">🎂 Your age</label><input id="au_a" type="number" min="8" max="70" placeholder="e.g. 16">
+  <label class="f" for="au_p1">Create a PIN (4–6 digits)</label><input id="au_p1" class="pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••" autocomplete="new-password">
+  <label class="f" for="au_p2">Confirm PIN</label><input id="au_p2" class="pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••" autocomplete="new-password">
+  <label class="f">Pick a colour</label><div class="sw" id="asw"></div>
+  <label class="chips" style="margin-top:14px"><input type="checkbox" id="au_r" checked><span>Remember me on this device</span></label>
+  <button class="btn" style="width:100%;margin-top:16px" onclick="signup()">Create account</button>
+  <p class="mu" style="text-align:center;margin:12px 0 2px">or</p><button class="btn s" style="width:100%" onclick="guest()">Continue as guest</button></div>
+ <label class="chips" style="margin-top:14px"><input type="checkbox" onchange="document.querySelectorAll('.pin').forEach(i=>i.type=this.checked?'text':'password')"><span>Show PIN</span></label>
+ <p class="err" id="aerr" role="alert"></p>
+ <p class="mu">Your account and entries stay in this browser only. The PIN is a simple lock for casual privacy, not strong security.</p>
+</div></div>
+<div id="ob"><div class="card">
+ <div class="logo" style="padding:0">Mivi</div><h1>Hello, welcome in.</h1>
+ <p class="mu">A private place to track your cycle, understand your patterns and find a little calm. Everything stays on this device.</p>
+ <label class="f" style="text-align:left" for="obn">What should we call you?</label><input id="obn" maxlength="30" placeholder="Name or nickname">
+ <label class="f" style="text-align:left">Pick a colour</label><div class="sw" id="obsw" style="justify-content:center"></div>
+ <button class="btn" style="width:100%;margin-top:20px" onclick="start()">Start with Mivi</button>
+</div></div>
+
+<div class="deco" aria-hidden="true"><span style="left:3%;top:18%;font-size:34px">🌸</span><span style="left:92%;top:12%;font-size:28px;animation-delay:-2s">💗</span><span style="left:88%;top:62%;font-size:38px;animation-delay:-4s">🌷</span><span style="left:6%;top:70%;font-size:30px;animation-delay:-1s">✨</span><span style="left:48%;top:90%;font-size:26px;animation-delay:-5s">🦋</span></div>
+<div class="app">
+<nav id="nav"><div class="logo">Mivi<small>your cycle, understood</small></div></nav>
+<main>
+<div class="topbar" id="topbar"></div>
+<section class="v on" id="today">
+ <h1 id="hi">Hello</h1><p class="mu" id="dt"></p>
+<div id="pcard"></div>
+ <div class="card hero" id="hero"><div class="ring"><svg width="210" height="210"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--ac)"/><stop offset="1" style="stop-color:var(--p)"/></linearGradient></defs><circle cx="105" cy="105" r="92" fill="none" stroke="var(--ln)" stroke-width="14"/><circle id="rp" cx="105" cy="105" r="92" fill="none" stroke="url(#rg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"/></svg><div class="c"><span class="mu">cycle day</span><b id="cd">—</b></div></div>
+ <div><span class="pill" id="ph">Add your last period date</span><h2 id="np">Next period: not enough data</h2><p class="mu" id="pt">Mark a period start in the calendar or Settings and Mivi will estimate your next one. Predictions are estimates.</p><button class="btn" onclick="go('log')">+ Log today</button> <button class="btn s" onclick="go('relax')">I need a break</button></div></div>
+ <div class="g3" id="stats"></div>
+<div class="card" id="minicard"><h3>🗓️ <span id="minit"></span> <button class="btn s sm" style="margin-left:auto" onclick="go('cal')">Open full calendar →</button></h3><div class="cal mini" id="mini"></div><div id="minin" style="margin-top:12px"></div><p class="mu" style="margin:8px 0 0">Tap a day to see its details. 🌸</p></div>
+<div class="g2"><div class="card"><h3>💧 Water today <span class="pill" id="wc">0/8</span></h3><div class="water" id="wr"></div><span class="mu">Tap a cup to add or remove a glass.</span></div>
+ <div class="card"><h3>💭 How do you feel?</h3><div class="chips" id="qm"></div><p class="mu" style="margin-top:10px" id="tip"></p><button class="btn s sm" onclick="tip()">Another tip</button></div></div>
+ <div class="card"><h3>🌷 A gentle reminder</h3><p id="rem"></p><button class="btn s sm" onclick="rem()">Another one</button></div>
+ <div class="card"><h3>🌼 Recent entries</h3><div id="rec"></div></div>
+</section>
+
+<section class="v" id="log"><h1>📝 Log your day</h1><p class="mu">Record only what feels useful. No right or wrong answers. 💗</p>
+<div class="card"><label class="f" for="ld">Date</label><input type="date" id="ld" onchange="fill()">
+ <label class="f" for="fl">🩸 Bleeding</label><select id="fl"><option value="none">No bleeding</option><option value="spotting">Spotting</option><option value="light">Light</option><option value="medium">Medium</option><option value="heavy">Heavy</option></select>
+ <label class="f" for="pn">😖 Pain: <span id="pv">0</span>/10</label><input type="range" id="pn" min="0" max="10" value="0" oninput="pv.textContent=this.value" style="padding:0">
+ <label class="f">🌀 Symptoms</label><div class="chips" id="sy"></div>
+ <label class="f">💭 Mood</label><div class="chips" id="md"></div>
+ <div class="g2"><div><label class="f" for="en">⚡ Energy</label><select id="en"><option value="">–</option><option>Low</option><option>Medium</option><option>High</option></select></div><div><label class="f" for="sl">😴 Sleep (hours)</label><input type="number" id="sl" min="0" max="24" step=".5"></div>
+ <div><label class="f" for="fa">🏃‍♀️ Movement</label><select id="fa"><option value="">Rest day</option><option>Walking</option><option>Yoga</option><option>Stretching</option><option>Running</option><option>Cycling</option><option>Strength</option><option>Swimming</option><option>Dance</option></select></div><div><label class="f" for="fm">⏱️ Minutes</label><input type="number" id="fm" min="0" max="600" step="5"></div></div>
+ <div id="sxw" class="hide"><label class="f" for="sx">💞 Intimacy (optional, private)</label><select id="sx"><option value="">Not logged</option><option value="protected">Protected</option><option value="unprotected">Unprotected</option></select></div>
+ <label class="f" for="nt">📝 Private note</label><textarea id="nt" rows="3" placeholder="Anything to remember…"></textarea>
+ <p class="mu">If you feel faint, dizzy or have chest pain while exercising, stop and get medical help.</p>
+ <button class="btn" onclick="saveLog()">💾 Save entry</button> <button class="btn s" onclick="delLog()">Delete this day</button></div></section>
+
+<section class="v" id="cal"><h1>🗓️ Your calendar</h1><p class="mu">Tap a day for details, or tap the month name to jump to today. 📍 Fertile window and ovulation are estimates only, never contraception.</p>
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><button class="btn s sm" onclick="mv(-1)">← Prev</button><h2 id="mt" style="margin:0;cursor:pointer" title="Tap to jump to today" onclick="cm=new Date();cm.setDate(1);draw()"></h2><button class="btn s sm" onclick="mv(1)">Next →</button></div><div class="cal" id="cg"></div>
+<div class="leg"><span><i style="background:var(--g1)"></i>🩸 Logged period</span><span><i style="background:#ffe0e8"></i>Menstrual</span><span><i style="background:#e6f4ff"></i>Follicular</span><span><i style="background:#d9f2e2"></i>🌼 Fertile (est.)</span><span><i style="background:#ffe58a"></i>✨ Ovulation (est.)</span><span><i style="background:#efe6ff"></i>🌙 Luteal</span><span><i style="background:var(--pp);border:2px dashed var(--p)"></i>🌸 Predicted</span></div><p class="mu" style="margin:8px 0 0">Emoji on a day show your logged mood. Tap any day for details.</p></div>
+<div class="card" id="dd"><span class="mu">Select a date to see its cycle day, phase and what you logged.</span></div></section>
+
+<section class="v" id="ins"><h1>📈 Your insights</h1><p class="mu">Simple patterns from what you log. Not medical advice. 🌸</p><div id="ib"></div></section>
+
+<section class="v" id="relax"><h1>🫧 Mood relief</h1><p class="mu">Cranky, restless or just tired? Pick something soft. No scores, no pressure. 🌷</p>
+<div class="g2"><div class="card"><h3>🫧 Bubble pop</h3><div class="bub" id="bb"></div><p class="mu">Popped: <b id="bn">0</b></p></div>
+<div class="card"><h3>🌬️ Gentle breathing</h3><div class="bc" id="bc"></div><div class="box" id="bt">Ready when you are</div><button class="btn sm" style="margin-top:10px" onclick="breathe()" id="bs">Start</button></div>
+<div class="card"><h3>💌 Kind words</h3><div class="box" id="kw">You deserve patience, including from yourself.</div><button class="btn s sm" style="margin-top:10px" onclick="kind()">Another</button></div>
+<div class="card"><h3>🪷 Grounding</h3><div class="box" id="gt">Find 5 things you can see.</div><button class="btn s sm" style="margin-top:10px" onclick="ground()">Next step</button></div>
+<div class="card"><h3>🧠 Myth or fact?</h3><h3 id="qzq" style="font-weight:500"></h3><div id="qza"></div><div id="qzf" style="margin-top:10px"></div></div>
+<div class="card"><h3>🃏 Memory match</h3><div class="mg" id="mgrid"></div><p class="mu" style="margin-top:10px">Moves: <b id="mcount">0</b> <button class="btn s sm" onclick="mem()">New game</button></p></div></div></section>
+
+<section class="v" id="learn"><h1>📚 Learn about your body</h1>
+<div class="card"><h2>🌙 Your cycle in four phases</h2><details><summary>🩸 Menstrual</summary><p>The uterine lining sheds. Energy can dip, so rest, warmth and iron-rich food feel good.</p></details><details><summary>🌱 Follicular</summary><p>Hormones rise and many people feel more energetic.</p></details><details><summary>✨ Ovulation</summary><p>An egg is released, usually 10–16 days before the next period. Timing varies.</p></details><details><summary>🌙 Luteal</summary><p>PMS symptoms such as bloating, mood changes or tiredness can appear.</p></details></div>
+<div class="card"><h2>💡 Myths &amp; facts</h2><div id="mf"></div></div>
+<div class="card"><h2>🩺 When to see a doctor</h2><p class="mu">Please see a doctor or gynaecologist for pain that stops daily life, very heavy bleeding or large clots, no period by 15, three or more missed periods, cycles under 21 or over 45 days, bleeding between periods or after sex, or foul discharge with itching or fever.</p><div class="note"><b>Go urgently</b> for fainting, soaking a pad or tampon every hour for 2+ hours, or severe pain with fever. In India, Tele-MANAS is 14416 (free, 24/7).</div></div></section>
+
+<section class="v" id="chat"><h1>💬 Ask Mivi</h1><p class="mu">Questions about periods, cramps or feelings? Ask away. 🌼</p><div class="card"><div class="note">Offline educational helper, not a clinician. It cannot diagnose you.</div><div class="chat" id="cb"></div>
+<div style="display:flex;gap:8px"><input id="ci" placeholder="e.g. Why do I get cramps?" onkeydown="if(event.key==='Enter')send()"><button class="btn" onclick="send()">Send</button></div><div class="chips" id="cs" style="margin-top:10px"></div><button class="btn s sm" style="margin-top:10px" onclick="S.chat=[];sv();cinit()">Clear</button></div></section>
+
+<section class="v" id="jr"><h1>📔 My journal</h1><p class="mu">A little space just for you. 💌</p><div class="card"><label class="f" for="jd">Date</label><input type="date" id="jd"><label class="f" for="jt">Your thoughts</label><textarea id="jt" rows="4" placeholder="Dear me…"></textarea><button class="btn" style="margin-top:12px" onclick="saveJ()">💌 Save note</button></div><div class="card"><h3>📚 Past notes</h3><div id="jl"></div></div></section>
+
+<section class="v" id="preg"><h1>🤍 Pregnancy &amp; safety</h1><p class="mu">Clear, calm guidance on pregnancy chances, prevention and staying safe. 💛</p><div id="pgb"></div></section>
+<section class="v" id="acct"><h1>🔑 Account</h1><p class="mu">Your private space on this device. 🌸</p><div id="ab"></div></section>
+<section class="v" id="set"><h1>⚙️ Settings</h1><p class="mu">Make Mivi feel like yours. 🎀</p>
+<div class="card"><h2>👤 Profile &amp; cycle</h2><label class="f" for="sn">Name</label><input id="sn" maxlength="30"><label class="f" for="sa">🎂 Age</label><input type="number" id="sa" min="8" max="70"><div class="g2"><div><label class="f" for="sd">First day of last period</label><input type="date" id="sd"></div><div><label class="f" for="sc">Cycle length</label><input type="number" id="sc" min="15" max="90"></div></div><label class="f" for="sp">Period length (days)</label><input type="number" id="sp" min="1" max="15"><button class="btn" style="margin-top:14px" onclick="saveSet()">💾 Save</button></div>
+<div class="card"><h2>🎨 Theme</h2><div class="sw" id="sw"></div>
+<div style="margin-top:20px"><h3>✨ Make your own theme</h3><p class="mu">Pick any two colours and Mivi paints itself in them. Tap the rainbow circle above to switch back to your own theme.</p><div class="g2"><div><label class="f" for="cpi">💗 Main colour</label><input type="color" id="cpi" value="#e2538a" oninput="cust()"></div><div><label class="f" for="cai">🌼 Accent colour</label><input type="color" id="cai" value="#f5a85f" oninput="cust()"></div></div><button class="btn s sm" style="margin-top:12px" onclick="S.cp='';S.ca='';S.theme='plum';sv();ap()">Reset to Mivi plum</button></div><label class="chips" style="margin-top:14px"><input type="checkbox" id="dk" onchange="S.dark=this.checked?1:0;sv();ap()"><span>Dark mode</span></label></div>
+<div class="card"><h2>🌐 Language</h2><select class="langsel" onchange="setLang(this.value)" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option><option value="es">Español</option><option value="fr">Français</option></select><p class="mu">Menus, headings, labels and buttons are translated. Long guides and chat answers stay in English for now.</p></div>
+<div class="card"><h2>🔐 Account</h2><p class="mu">A PIN keeps casual snoopers out of your private space on this device.</p><button class="btn s" onclick="setPin()">Set or change PIN</button> <button class="btn s" onclick="logout()">Log out</button></div>
+<div class="card"><h2>🔒 Privacy</h2><p class="mu">Data lives in this browser only. Anyone using this browser profile may see it, so avoid shared devices.</p><button class="btn s" onclick="exp()">Export JSON</button> <button class="btn s" onclick="wipe()">Clear all data</button></div></section>
+</main></div>
+<div class="fabs"><button onclick="S.lg=S.lg?0:1;sv();ap()" aria-label="Toggle larger text">Aa</button><button id="fab" onclick="readNow()">🔊 Read aloud</button></div>
+<div class="toast" id="ts"></div>
+
+<script>
+const $=i=>document.getElementById(i),K="mivi_v1";
+const D0={name:"",theme:"plum",dark:0,last:"",cyc:28,per:5,e:{},j:[],w:{},chat:[],done:0};
+let S;try{S={...D0,...JSON.parse(localStorage.getItem(K)||"{}")}}catch(_){S={...D0}}
+const sv=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(_){}};
+const iso=d=>{d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const pd=s=>s?new Date(s+"T12:00:00"):null,add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x},df=(a,b)=>Math.round((b-a)/864e5);
+const LOC=()=>S.lang&&S.lang!=="en"?S.lang:undefined;
+const fm=(d,y)=>d?d.toLocaleDateString(LOC(),y?{day:"numeric",month:"short",year:"numeric"}:{day:"numeric",month:"short"}):"—";
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const toast=t=>{const e=$("ts");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),2200)};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const PAGES=[["today","🏡","Today"],["log","➕","Log"],["cal","🗓️","Calendar"],["ins","📈","Insights"],["relax","🫧","Relax"],["learn","📚","Learn"],["chat","💬","Ask Mivi"],["jr","📔","Journal"],["preg","🤍","Safety"],["acct","🔑","Account"],["set","⚙️","Settings"]];
+const THEMES=[["plum","#8a4f8f"],["rose","#c4466d"],["ocean","#3f79ab"],["sage","#488564"],["sunset","#c2623a"],["galaxy","#9a88ff"]];
+const ME={Happy:"😊",Calm:"😌",Tired:"😴",Irritable:"😣",Sad:"😢",Anxious:"😰",Loved:"🥰",Overwhelmed:"😵‍💫"},SE={Cramps:"🌀",Bloating:"🎈",Headache:"🤕",Backache:"🔙","Tender breasts":"💗",Acne:"🍓",Fatigue:"🥱",Nausea:"🤢",Cravings:"🍫","Low mood":"🌧️","Poor sleep":"🌙"};
+const MOODS=["Happy","Calm","Tired","Irritable","Sad","Anxious","Loved","Overwhelmed"],SYM=["Cramps","Bloating","Headache","Backache","Tender breasts","Acne","Fatigue","Nausea","Cravings","Low mood","Poor sleep"];
+const REM=["Rest counts as progress too. 🌷","Your feelings are real, even when they shift. 💗","One small step is still a step. 🌱","You are allowed to pause and begin again. 🫧","Your cycle is yours; no need to compare it. 🌼"];
+const TIPS=["A warm compress on your lower belly can ease cramps.","Pair iron-rich foods like lentils or spinach with lemon or amla.","Gentle walking or stretching can lift mood and ease aches.","Dim screens before bed; sleep is often lighter around your period.","Change pads every 4–6 hours and wash hands before and after."];
+const KIND=["You deserve patience, including from yourself. 💗","You do not need everything figured out today. 🌸","Resting is not failing. 🫶","You can feel two things at once, and that is okay. 💜"];
+const GR=["Find 5 things you can see.","Notice 4 things you can feel, like your feet on the floor.","Listen for 3 sounds.","Notice 2 smells, or recall two you enjoy.","Say 1 kind thing to yourself. You made it. 💗"];
+const MF=[["You cannot get pregnant on your period.","Myth. Sperm can live up to 5 days and ovulation timing varies. Tracking is not contraception."],["Everyone has a 28-day cycle.","Myth. Cycles vary, especially in the teen years."],["Period blood is dirty or toxic.","Myth. It is blood and tissue from the uterine lining."],["You cannot exercise or wash your hair on your period.","Myth. Do what feels comfortable."],["Mild cramps can be normal.","Fact. Severe or worsening pain deserves a doctor."],["Hormones can affect mood.","Fact. Pain, sleep and stress matter too."],["Predictions are exact.","Myth. Stress, illness and travel shift timing."],["You can only get pregnant on one day each cycle.","Myth. Sperm can survive up to 5 days, so the fertile window spans several days."],["Using a tampon changes your virginity.","Myth. Virginity is a social idea, not something a tampon changes."],["Stress can delay your period.","Fact. Stress, illness and big routine changes can shift ovulation and timing."],["Staying hydrated can ease period bloating.","Fact. Water and fibre help many people feel less bloated."],["Cramps always mean something is wrong.","Myth. Mild to moderate cramps are common; only severe or worsening pain needs checking."],["Periods sync up when friends live together.","Myth. Studies have not found reliable evidence for period syncing."],["You lose a huge amount of blood in a period.","Myth. Most people lose about 2 to 5 tablespoons (30 to 80 ml) in total."],["Heat can help with cramps.","Fact. A warm compress relaxes muscles and can ease pain."],["Girls must not enter the kitchen or touch pickles on their period.","Myth. This is a custom with no medical basis."],["Skipping meals is fine during a period.","Myth. Regular meals keep energy and mood steadier."],["Teen periods can stay irregular for the first few years.","Fact. Hormones take time to settle."],["Period products can only be used once you are older.","Myth. Pads, cups and tampons are about comfort and fit, not a set age."]];
+const MFT={"hi": [["आप पीरियड के दौरान गर्भवती नहीं हो सकतीं।", "मिथक। शुक्राणु 5 दिन तक जीवित रह सकते हैं और ओव्यूलेशन का समय बदलता है। ट्रैकिंग गर्भनिरोधक नहीं है।"], ["हर किसी का चक्र 28 दिन का होता है।", "मिथक। चक्र अलग-अलग होते हैं, खासकर किशोरावस्था में।"], ["पीरियड का खून गंदा या ज़हरीला होता है।", "मिथक। यह गर्भाशय की परत का रक्त और ऊतक है।"], ["पीरियड में आप व्यायाम नहीं कर सकतीं या बाल नहीं धो सकतीं।", "मिथक। जो आरामदायक लगे वही करें।"], ["हल्की ऐंठन सामान्य हो सकती है।", "तथ्य। तेज़ या बढ़ता दर्द हो तो डॉक्टर को दिखाएँ।"], ["हार्मोन मूड को प्रभावित कर सकते हैं।", "तथ्य। दर्द, नींद और तनाव भी असर डालते हैं।"], ["पूर्वानुमान बिल्कुल सटीक होते हैं।", "मिथक। तनाव, बीमारी और यात्रा से समय बदल जाता है।"], ["आप हर चक्र में सिर्फ़ एक दिन गर्भवती हो सकती हैं।", "मिथक। शुक्राणु 5 दिन तक जीवित रह सकते हैं, इसलिए उर्वर अवधि कई दिनों की होती है।"], ["टैम्पोन इस्तेमाल करने से कौमार्य बदल जाता है।", "मिथक। कौमार्य एक सामाजिक धारणा है; टैम्पोन से कुछ नहीं बदलता।"], ["तनाव से पीरियड में देरी हो सकती है।", "तथ्य। तनाव, बीमारी और दिनचर्या के बड़े बदलाव ओव्यूलेशन और समय बदल सकते हैं।"], ["पर्याप्त पानी पीने से पीरियड की सूजन कम हो सकती है।", "तथ्य। पानी और फाइबर से कई लोगों को सूजन कम लगती है।"], ["ऐंठन का मतलब हमेशा कुछ गड़बड़ है।", "मिथक। हल्की से मध्यम ऐंठन आम है; केवल तेज़ या बढ़ते दर्द की जाँच ज़रूरी है।"], ["साथ रहने वाली सहेलियों के पीरियड एक साथ आने लगते हैं।", "मिथक। अध्ययनों में पीरियड सिंक होने का भरोसेमंद प्रमाण नहीं मिला।"], ["पीरियड में बहुत ज़्यादा खून निकलता है।", "मिथक। ज़्यादातर लोगों का कुल रक्तस्राव लगभग 2 से 5 बड़े चम्मच (30 से 80 मि.ली.) होता है।"], ["सेंक से ऐंठन में राहत मिल सकती है।", "तथ्य। गर्म सेंक मांसपेशियों को आराम देकर दर्द कम कर सकता है।"], ["पीरियड में लड़कियाँ रसोई में न जाएँ या अचार न छुएँ।", "मिथक। यह सिर्फ़ एक रीति है, इसका कोई चिकित्सीय आधार नहीं।"], ["पीरियड में खाना छोड़ना ठीक है।", "मिथक। नियमित भोजन से ऊर्जा और मूड स्थिर रहते हैं।"], ["किशोरावस्था में शुरुआती कुछ साल पीरियड अनियमित रह सकते हैं।", "तथ्य। हार्मोन को स्थिर होने में समय लगता है।"], ["पीरियड प्रोडक्ट बड़े होने के बाद ही इस्तेमाल हो सकते हैं।", "मिथक। पैड, कप और टैम्पोन आराम और फिट पर निर्भर हैं, किसी तय उम्र पर नहीं।"]], "mr": [["मासिक पाळीत तुम्हाला गर्भधारणा होऊ शकत नाही.", "गैरसमज. शुक्राणू ५ दिवस जगू शकतात आणि ओव्हुलेशनची वेळ बदलते. ट्रॅकिंग म्हणजे गर्भनिरोधक नाही."], ["प्रत्येकीचे चक्र २८ दिवसांचे असते.", "गैरसमज. चक्रे वेगवेगळी असतात, विशेषतः किशोरवयात."], ["पाळीचे रक्त घाणेरडे किंवा विषारी असते.", "गैरसमज. हे गर्भाशयाच्या आवरणातील रक्त आणि ऊती आहेत."], ["पाळीत व्यायाम करता येत नाही किंवा केस धुता येत नाहीत.", "गैरसमज. जे सोयीचे वाटेल तेच करा."], ["सौम्य कळा सामान्य असू शकतात.", "तथ्य. तीव्र किंवा वाढत जाणाऱ्या वेदनेसाठी डॉक्टरांना दाखवा."], ["हार्मोन्समुळे मूडवर परिणाम होऊ शकतो.", "तथ्य. वेदना, झोप आणि ताणाचाही परिणाम होतो."], ["अंदाज अगदी अचूक असतात.", "गैरसमज. ताण, आजार आणि प्रवासामुळे वेळ बदलते."], ["प्रत्येक चक्रात फक्त एकाच दिवशी गर्भधारणा होऊ शकते.", "गैरसमज. शुक्राणू ५ दिवस जगू शकतात, म्हणून सुपीक कालावधी अनेक दिवसांचा असतो."], ["टॅम्पॉन वापरल्याने कौमार्य बदलते.", "गैरसमज. कौमार्य ही सामाजिक कल्पना आहे; टॅम्पॉनमुळे काही बदलत नाही."], ["ताणामुळे पाळी उशिरा येऊ शकते.", "तथ्य. ताण, आजार आणि दिनक्रमातील मोठ्या बदलांमुळे ओव्हुलेशन आणि वेळ बदलू शकते."], ["भरपूर पाणी प्यायल्याने पाळीतील फुगणे कमी होऊ शकते.", "तथ्य. पाणी आणि फायबरमुळे अनेकांना फुगल्यासारखे कमी वाटते."], ["कळा आल्या म्हणजे नेहमी काहीतरी बिघडले असते.", "गैरसमज. सौम्य ते मध्यम कळा सामान्य आहेत; फक्त तीव्र किंवा वाढत्या वेदनेची तपासणी हवी."], ["एकत्र राहणाऱ्या मैत्रिणींची पाळी एकाच वेळी येते.", "गैरसमज. पाळी एकत्र येण्याचा विश्वासार्ह पुरावा अभ्यासांत मिळालेला नाही."], ["पाळीत खूप जास्त रक्त जाते.", "गैरसमज. बहुतेकींचा एकूण रक्तस्राव सुमारे २ ते ५ चमचे (३० ते ८० मि.ली.) असतो."], ["शेकामुळे कळांपासून आराम मिळू शकतो.", "तथ्य. गरम शेकाने स्नायू सैल होऊन वेदना कमी होऊ शकते."], ["पाळीत मुलींनी स्वयंपाकघरात जाऊ नये किंवा लोणच्याला हात लावू नये.", "गैरसमज. ही फक्त एक प्रथा आहे, याला वैद्यकीय आधार नाही."], ["पाळीत जेवण टाळणे योग्य आहे.", "गैरसमज. नियमित जेवणाने ऊर्जा आणि मूड स्थिर राहतो."], ["किशोरवयात पहिली काही वर्षे पाळी अनियमित राहू शकते.", "तथ्य. हार्मोन्स स्थिर होण्यास वेळ लागतो."], ["पाळीची उत्पादने मोठे झाल्यावरच वापरता येतात.", "गैरसमज. पॅड, कप आणि टॅम्पॉन सोय आणि फिटवर अवलंबून आहेत, ठरावीक वयावर नाही."]], "es": [["No puedes quedarte embarazada durante la regla.", "Mito. Los espermatozoides viven hasta 5 días y la ovulación varía. Registrar no es anticoncepción."], ["Todas tenemos un ciclo de 28 días.", "Mito. Los ciclos varían, sobre todo en la adolescencia."], ["La sangre menstrual es sucia o tóxica.", "Mito. Es sangre y tejido del revestimiento del útero."], ["No puedes hacer ejercicio ni lavarte el pelo con la regla.", "Mito. Haz lo que te resulte cómodo."], ["Los cólicos leves pueden ser normales.", "Hecho. El dolor intenso o creciente merece ver a un médico."], ["Las hormonas pueden afectar el ánimo.", "Hecho. El dolor, el sueño y el estrés también influyen."], ["Las predicciones son exactas.", "Mito. El estrés, la enfermedad y los viajes cambian los tiempos."], ["Solo puedes quedarte embarazada un día de cada ciclo.", "Mito. Los espermatozoides viven hasta 5 días, así que la ventana fértil dura varios días."], ["Usar tampón cambia tu virginidad.", "Mito. La virginidad es una idea social; un tampón no la cambia."], ["El estrés puede retrasar tu período.", "Hecho. El estrés, la enfermedad y los cambios de rutina pueden mover la ovulación y los tiempos."], ["Hidratarte puede aliviar la hinchazón del período.", "Hecho. El agua y la fibra ayudan a sentir menos hinchazón."], ["Los cólicos siempre significan que algo va mal.", "Mito. Los cólicos leves o moderados son comunes; solo el dolor intenso o creciente necesita revisión."], ["Los períodos se sincronizan cuando las amigas conviven.", "Mito. Los estudios no han hallado pruebas fiables de sincronización."], ["Pierdes muchísima sangre en un período.", "Mito. La mayoría pierde unas 2 a 5 cucharadas (30 a 80 ml) en total."], ["El calor puede ayudar con los cólicos.", "Hecho. Una compresa caliente relaja los músculos y puede aliviar el dolor."], ["Las chicas no deben entrar en la cocina ni tocar encurtidos durante el período.", "Mito. Es una costumbre sin base médica."], ["Saltarse comidas está bien durante el período.", "Mito. Comer con regularidad mantiene estables la energía y el ánimo."], ["Los períodos adolescentes pueden ser irregulares los primeros años.", "Hecho. Las hormonas tardan en estabilizarse."], ["Los productos menstruales solo se usan cuando eres mayor.", "Mito. Compresas, copas y tampones dependen de la comodidad y el ajuste, no de una edad."]], "fr": [["Tu ne peux pas tomber enceinte pendant tes règles.", "Mythe. Les spermatozoïdes vivent jusqu’à 5 jours et l’ovulation varie. Le suivi n’est pas une contraception."], ["Tout le monde a un cycle de 28 jours.", "Mythe. Les cycles varient, surtout à l’adolescence."], ["Le sang des règles est sale ou toxique.", "Mythe. C’est du sang et du tissu de la muqueuse de l’utérus."], ["Tu ne peux pas faire de sport ni te laver les cheveux pendant tes règles.", "Mythe. Fais ce qui te semble confortable."], ["Des crampes légères peuvent être normales.", "Fait. Une douleur intense ou croissante mérite l’avis d’un médecin."], ["Les hormones peuvent influencer l’humeur.", "Fait. La douleur, le sommeil et le stress comptent aussi."], ["Les prévisions sont exactes.", "Mythe. Le stress, la maladie et les voyages décalent le calendrier."], ["Tu ne peux tomber enceinte qu’un jour par cycle.", "Mythe. Les spermatozoïdes survivent jusqu’à 5 jours : la fenêtre fertile dure plusieurs jours."], ["Utiliser un tampon change ta virginité.", "Mythe. La virginité est une idée sociale ; un tampon n’y change rien."], ["Le stress peut retarder tes règles.", "Fait. Le stress, la maladie et les changements de routine peuvent décaler l’ovulation."], ["Bien s’hydrater peut atténuer les ballonnements.", "Fait. L’eau et les fibres aident à moins se sentir ballonnée."], ["Les crampes signifient toujours que quelque chose ne va pas.", "Mythe. Les crampes légères à modérées sont courantes ; seule la douleur intense ou croissante demande un avis."], ["Les règles se synchronisent quand des amies vivent ensemble.", "Mythe. Les études n’ont pas trouvé de preuve fiable de synchronisation."], ["On perd énormément de sang pendant les règles.", "Mythe. La plupart perdent environ 2 à 5 cuillères à soupe (30 à 80 ml) au total."], ["La chaleur peut soulager les crampes.", "Fait. Une bouillotte détend les muscles et peut soulager la douleur."], ["Les filles ne doivent pas entrer dans la cuisine ni toucher aux pickles pendant leurs règles.", "Mythe. C’est une coutume sans fondement médical."], ["Sauter des repas n’est pas un problème pendant les règles.", "Mythe. Des repas réguliers stabilisent l’énergie et l’humeur."], ["Les règles des ados peuvent rester irrégulières les premières années.", "Fait. Les hormones mettent du temps à se stabiliser."], ["Les protections ne s’utilisent qu’une fois plus grande.", "Mythe. Serviettes, coupes et tampons dépendent du confort et de l’ajustement, pas d’un âge."]]};
+function mfx(i,k){const t=(MFT[S.lang]||[])[i];return t?t[k]:MF[i][k]}
+const PH={mens:["🩸 Menstrual","Your period is here. Rest, warmth and iron-rich food may help."],foll:["🌱 Follicular","Energy often rises. A good time for new plans if you feel up to it."],fert:["🌼 Fertile window (est.)","Ovulation is close. This is only an estimate."],ovu:["✨ Estimated ovulation","An egg is usually released around now. A calendar cannot pinpoint it."],lut:["🌙 Luteal","PMS symptoms can appear. Go gently and sleep well."],late:["⏳ Period may be late","Stress, illness or routine changes can delay it. If pregnancy is possible, a test can help."]};
+const FIT={mens:"Gentle walks, stretching or yoga, or rest.",foll:"Good energy for cardio or strength.",fert:"Most activities feel fine; listen to your body.",ovu:"Most activities feel fine; stay hydrated.",lut:"Moderate workouts, yoga or walks; rest when tired.",late:"Keep movement gentle and comfortable."};
+
+function starts(){const ds=Object.keys(S.e).filter(k=>["light","medium","heavy"].includes(S.e[k].flow)).sort(),o=[];let p=null;
+ ds.forEach(k=>{const d=pd(k);if(!p||df(p,d)>2)o.push(k);p=d});
+ if(S.last&&!o.some(x=>Math.abs(df(pd(x),pd(S.last)))<=3))o.push(S.last);return o.sort()}
+function stats(){const s=starts().map(pd),l=[];for(let i=1;i<s.length;i++){const n=df(s[i-1],s[i]);if(n>=15&&n<=90)l.push(n)}
+ return{l,avg:l.length?Math.round(l.reduce((a,b)=>a+b)/l.length):(+S.cyc||28)}}
+function info(date){const cyc=stats().avg,per=+S.per||5,st=starts().map(pd).filter(x=>x<=date);if(!st.length)return null;const b=st[st.length-1];
+ let day=df(b,date)+1,proj=0;if(day>cyc&&date>pd(iso())){day=(day-1)%cyc+1;proj=1}
+ const o=cyc-13;return{day,cyc,per,proj,b,ph:day>cyc?"late":day<=per?"mens":day==o?"ovu":(day>=o-5&&day<=o+1)?"fert":day<o?"foll":"lut"}}
+
+const CUSTSW=()=>`<button aria-label="custom theme" class="${S.theme==="custom"?"on":""}" style="background:conic-gradient(#f27ba3,#f5a85f,#8cc2ee,#9a88ff,#f27ba3)" onclick="S.theme='custom';sv();ap()"></button>`;
+function cust(){S.cp=$("cpi").value;S.ca=$("cai").value;S.theme="custom";sv();ap()}
+function ap(){const r=document.documentElement.style;r.setProperty("--cp",S.cp||"#e2538a");r.setProperty("--ca",S.ca||"#f5a85f");$("cpi").value=S.cp||"#e2538a";$("cai").value=S.ca||"#f5a85f";document.documentElement.dataset.theme=S.theme;document.documentElement.classList.toggle("dark",!!S.dark);document.body.classList.toggle("lg",!!S.lg);if($("dk"))$("dk").checked=!!S.dark;
+ const t=THEMES.map(x=>`<button aria-label="${x[0]}" class="${S.theme===x[0]?"on":""}" style="background:${x[1]}" onclick="S.theme='${x[0]}';sv();ap()"></button>`).join("")+CUSTSW();$("sw").innerHTML=t;$("obsw").innerHTML=t;$("asw").innerHTML=t}
+function go(id){stopRead();document.querySelectorAll(".v").forEach(v=>v.classList.toggle("on",v.id===id));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.p===id));
+ ({today:home,cal:()=>{draw();},ins:insights,preg:pregRender,acct:acctRender,jr:jlist,set:setfill,log:fill}[id]||(()=>{}))();scrollTo({top:0})}
+function start(){const n=$("obn").value.trim();if(!n){toast("Please enter a name");return}S.name=n;S.done=1;sv();$("ob").classList.add("hide");home()}
+
+/* TODAY */
+function home(){topbar();miniCal();pregCard();const t=pd(iso()),i=info(t),c=stats().avg;
+ const hr=new Date().getHours(),gr=tt(hr<12?"Good morning":hr<18?"Good afternoon":"Good evening")+(hr<12?" ☀️":hr<18?" 🌤️":" 🌙");$("hi").textContent=S.name?`${gr}, ${S.name} 🌷`:gr;$("dt").textContent=t.toLocaleDateString(LOC(),{weekday:"long",day:"numeric",month:"long"});
+ if(i){$("cd").textContent=i.day;$("rp").style.strokeDashoffset=578*(1-Math.min(1,i.day/c));$("ph").textContent=PH[i.ph][0];
+  let n=add(i.b,c);while(n<t)n=add(n,c);const left=df(t,n);
+  $("np").textContent=left===0?"Your period is expected today":`Next period in ~${left} day${left>1?"s":""}`;
+  $("pt").textContent=`Estimated ${fm(n,1)} (cycle ~${c} days). ${PH[i.ph][1]} Movement idea: ${FIT[i.ph]}`}
+ else{$("cd").textContent="—";$("rp").style.strokeDashoffset=578;$("ph").textContent="Add your last period date";$("np").textContent="Next period: not enough data"}
+ const e=S.e[iso()]||{};$("qm").innerHTML=MOODS.map(m=>`<span class="chip ${e.mood===m?"on":""}" onclick="qmood('${m}')">${ME[m]} ${m}</span>`).join("");
+ const w=S.w[iso()]||0;$("wr").innerHTML=Array.from({length:8},(_,k)=>`<button class="cup ${k<w?"on":""}" aria-label="glass ${k+1}" onclick="water(${k+1})"></button>`).join("");$("wc").textContent=w+"/8";
+ {const ks=Object.keys(S.e);let d=pd(iso());if(!S.e[iso(d)])d=add(d,-1);let st=0;while(S.e[iso(d)]){st++;d=add(d,-1)}
+ $("stats").innerHTML=[["🔥",st,"day streak"],["📝",ks.length,"days logged"],["💖",(S.w[iso()]||0)+"/8","glasses today"]].map(x=>`<div class="card stat"><span>${x[0]}</span><b>${x[1]}</b><small>${x[2]}</small></div>`).join("")}
+ const r=Object.keys(S.e).sort().reverse().slice(0,3);$("rec").innerHTML=r.length?r.map(k=>`<div class="row"><b>${fm(pd(k),1)}</b><span class="mu">${ME[S.e[k].mood]||""} ${esc(S.e[k].mood||"")} ${esc((S.e[k].sym||[]).join(", "))}</span></div>`).join(""):'<p class="mu">Your entries will appear here.</p>';
+ if(!$("tip").textContent)tip();if(!$("rem").textContent)rem()}
+function tip(){$("tip").textContent="💡 "+pick(TIPS)}function rem(){$("rem").textContent=pick(REM)}
+function water(n){const k=iso();S.w[k]=(S.w[k]===n?n-1:n);sv();home()}
+function qmood(m){const k=iso();S.e[k]={...(S.e[k]||{flow:"none",pain:0,sym:[]}),mood:m};sv();home();toast("Thanks for checking in 💗")}
+
+/* LOG */
+function chipsInit(){$("sy").innerHTML=SYM.map(s=>`<label><input type="checkbox" value="${s}"><span>${SE[s]||""} ${s}</span></label>`).join("");$("md").innerHTML=MOODS.map(m=>`<label><input type="radio" name="md" value="${m}"><span>${ME[m]} ${m}</span></label>`).join("")}
+function fill(){const k=$("ld").value||iso(),e=S.e[k]||{};$("ld").value=k;$("fl").value=e.flow||"none";$("pn").value=e.pain||0;$("pv").textContent=e.pain||0;
+ document.querySelectorAll("#sy input").forEach(i=>i.checked=(e.sym||[]).includes(i.value));document.querySelectorAll("#md input").forEach(i=>i.checked=e.mood===i.value);
+ $("en").value=e.energy||"";$("sl").value=e.sleep||"";$("fa").value=e.fit||"";$("fm").value=e.fmin||"";$("nt").value=e.note||"";$("sxw").classList.toggle("hide",!(S.age&&+S.age>=18));$("sx").value=e.sex||""}
+function saveLog(){const k=$("ld").value||iso(),m=document.querySelector("#md input:checked");
+ S.e[k]={flow:$("fl").value,pain:+$("pn").value,sym:[...document.querySelectorAll("#sy input:checked")].map(i=>i.value),mood:m?m.value:"",energy:$("en").value,sleep:$("sl").value,fit:$("fa").value,fmin:$("fm").value,note:$("nt").value.trim(),sex:$("sx").value};
+ sv();toast("Entry saved 💗");if(["heavy"].includes($("fl").value))toast("Heavy flow noted. If you soak a pad every hour, seek care.")}
+function delLog(){const k=$("ld").value;if(S.e[k]&&confirm("Delete this day?")){delete S.e[k];sv();fill();toast("Deleted")}}
+
+/* CALENDAR */
+let cm=new Date();cm.setDate(1);
+function mv(n){cm.setMonth(cm.getMonth()+n);draw()}
+function draw(){const y=cm.getFullYear(),m=cm.getMonth(),f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate(),today=iso(),tdd=pd(today);
+ $("mt").textContent=cm.toLocaleDateString(LOC(),{month:"long",year:"numeric"});
+ let h=["S","M","T","W","T","F","S"].map(d=>`<div>${d}</div>`).join("")+"<span></span>".repeat(f);
+ for(let d=1;d<=n;d++)h+=cellHTML(new Date(y,m,d,12),d);
+ $("cg").innerHTML=h}
+function pickDay(k){const d=pd(k),e=S.e[k],i=info(d);let h=`<h3>${fm(d,1)}</h3>`;
+ h+=i?`<p><span class="pill">Cycle day ${i.day}${i.proj?" (est.)":""}</span><span class="pill">${PH[i.ph][0]}</span></p><p class="mu">${PH[i.ph][1]}</p>`:'<p class="mu">No cycle info yet. Mark a period start.</p>';
+ h+=e?`<p><b>Logged:</b> ${esc(e.mood||"–")} · bleeding ${esc(e.flow)} · pain ${e.pain||0}/10<br>${esc((e.sym||[]).join(", ")||"no symptoms")}${e.fit?`<br>Movement: ${esc(e.fit)} ${esc(e.fmin||"")} min`:""}</p>${e.note?`<p>${esc(e.note)}</p>`:""}`:'<p class="mu">Nothing logged.</p>';
+ h+=`<button class="btn sm" onclick="$('ld').value='${k}';go('log')">Log this day</button> <button class="btn s sm" onclick="S.last='${k}';sv();draw();pickDay('${k}');toast('Period start saved')">Mark as period start</button>`;$("dd").innerHTML=h}
+
+/* INSIGHTS */
+function insights(){const t=pd(iso()),st=stats(),i=info(t);if(!i){$("ib").innerHTML='<div class="card"><h2>👋 Let us get started</h2><p>Add your last period date and your phase, predictions and patterns will show up here.</p><button class="btn" onclick="go(\'set\')">Open settings</button></div>';return}
+ const c=st.avg;let n=add(i.b,c);const late=df(n,t);if(late>0)while(n<t)n=add(n,c);const ov=add(i.b,c-14),E=Object.values(S.e);
+ const cnt={};E.forEach(e=>(e.sym||[]).forEach(s=>cnt[s]=(cnt[s]||0)+1));const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,5);
+ const pains=E.filter(e=>e.pain>0).map(e=>e.pain),sl=E.filter(e=>+e.sleep).map(e=>+e.sleep),wk=E.length?Object.keys(S.e).filter(k=>df(pd(k),t)>=0&&df(pd(k),t)<7).reduce((a,k)=>a+(+S.e[k].fmin||0),0):0;
+ const mc={};E.forEach(e=>e.mood&&(mc[e.mood]=(mc[e.mood]||0)+1));const tm=Object.entries(mc).sort((a,b)=>b[1]-a[1])[0];
+ const av=a=>a.length?(a.reduce((x,y)=>x+y)/a.length).toFixed(1):"–";
+ let h=`<div class="g2"><div class="card"><h2>${PH[i.ph][0]}</h2><p>${PH[i.ph][1]}</p><p class="mu">Day ${i.day} of about ${c}. Movement idea: ${FIT[i.ph]}</p></div>
+ <div class="card"><h2>🔮 Predictions</h2><div class="row"><span>Next period</span><b>${fm(n,1)}</b></div><div class="row"><span>Est. ovulation</span><b>${fm(ov)}</b></div><div class="row"><span>Fertile window</span><b>${fm(add(ov,-5))} – ${fm(add(ov,1))}</b></div><p class="mu">${st.l.length?`Based on ${st.l.length} logged cycle(s).`:"Based on your settings."} Estimates only.</p></div></div>
+ <div class="g2" style="margin-top:14px"><div class="card"><h2>📊 Your cycles</h2>`;
+ if(st.l.length){const mx=Math.max(...st.l),r=Math.max(...st.l)-Math.min(...st.l);h+=`<div class="bars">${st.l.slice(-8).map(l=>`<div style="height:${l/mx*100}%"><small>${l}</small></div>`).join("")}</div><div class="row"><span>Average</span><b>${st.avg} days</b></div><div class="row"><span>Pattern</span><b>${st.l.length<2?"need 2+ cycles":r<=7?"fairly regular":r<=14?"somewhat variable":"quite variable"}</b></div>`}
+ else h+='<p class="mu">Log two or more period starts to see your own average and regularity.</p>';
+ h+=`</div><div class="card"><h2>🔎 Your patterns</h2><div class="row"><span>Top symptoms</span><span>${top.map(x=>`<span class="pill">${esc(x[0])} ×${x[1]}</span>`).join("")||"–"}</span></div><div class="row"><span>Common mood</span><b>${tm?esc(tm[0]):"–"}</b></div><div class="row"><span>Avg pain</span><b>${av(pains)}</b></div><div class="row"><span>Avg sleep</span><b>${av(sl)} h</b></div><div class="row"><span>Movement, last 7 days</span><b>${wk} min</b></div></div></div>`;
+ const fl=[];if(late>0)fl.push(`Your period is ${late} day${late>1?"s":""} later than expected. Stress, illness or routine changes can do this.${late>=7?" If pregnancy is possible, a test can help.":""}`);
+ if(st.l.length&&(st.avg<21||st.avg>(S.age&&+S.age<18?45:35)))fl.push(`Your average cycle (${st.avg} days) is outside 21–35. Common in teens, but mention it to a doctor if it continues.`);
+ if(E.filter(e=>e.flow==="heavy").length>=3)fl.push("You logged heavy bleeding several times. If you soak a pad every hour or feel dizzy, see a doctor.");
+ if(pains.filter(p=>p>=7).length>=2)fl.push("You logged severe pain more than once. Pain that stops daily life is worth a doctor visit.");
+ h+=`<div class="card" style="margin-top:14px"><h2>💡 Gentle heads-up</h2>${fl.length?fl.map(f=>`<div class="note">${esc(f)}</div>`).join(""):"<p>Nothing unusual stands out. Keep tracking. 🌸</p>"}<p class="mu">Simple rules, not a medical assessment.</p></div>`;$("ib").innerHTML=h}
+
+/* RELAX */
+let bp=0,bt=null;
+function bub(){$("bb").innerHTML=Array.from({length:12},(_,i)=>`<button aria-label="bubble" onclick="pop(this)"></button>`).join("")}
+function pop(b){b.classList.add("x");$("bn").textContent=++bp;setTimeout(()=>b.classList.remove("x"),900)}
+function breathe(){if(bt){clearInterval(bt);bt=null;$("bc").classList.remove("in");$("bt").textContent="Ready when you are";$("bs").textContent="Start";return}
+ let a=1;const t=()=>{$("bc").classList.toggle("in",a);$("bt").textContent=a?"Breathe in gently… 4":"Breathe out slowly… 6";a=!a};t();bt=setInterval(t,4000);$("bs").textContent="Stop"}
+function kind(){$("kw").textContent=pick(KIND)}let gs=0;function ground(){gs=(gs+1)%GR.length;$("gt").textContent=GR[gs]}
+
+/* LEARN */
+function mf(){$("mf").innerHTML=MF.map((m,i)=>`<details><summary>${m[1].startsWith("Myth")?"🙅‍♀️":"✅"} ${mfx(i,0)}</summary><p>${mfx(i,1)}</p></details>`).join("")}
+
+/* LANGUAGES */
+const LK=["Today","Log","Calendar","Insights","Relax","Learn","Ask Mivi","Journal","Account","Safety","Settings","Begin your journey with Mivi","Begin your journey","Log in","Create account","Continue as guest","Log your day","Your calendar","Your insights","Mood relief","Water today","How do you feel?","Good morning","Good afternoon","Good evening","Pregnancy & safety","Save entry","Language"];
+const LT={
+hi:["आज","दर्ज करें","कैलेंडर","अंतर्दृष्टि","आराम","सीखें","मिवी से पूछें","डायरी","खाता","सुरक्षा","सेटिंग्स","मिवी के साथ अपनी यात्रा शुरू करें","यात्रा शुरू करें","लॉग इन","खाता बनाएँ","अतिथि के रूप में जारी रखें","अपना दिन दर्ज करें","आपका कैलेंडर","आपकी अंतर्दृष्टि","मूड राहत","आज का पानी","आप कैसा महसूस कर रही हैं?","सुप्रभात","नमस्कार","शुभ संध्या","गर्भावस्था और सुरक्षा","प्रविष्टि सहेजें","भाषा"],
+mr:["आज","नोंदवा","कॅलेंडर","अंतर्दृष्टी","विश्रांती","शिका","मिवीला विचारा","डायरी","खाते","सुरक्षितता","सेटिंग्ज","मिवीसोबत तुमचा प्रवास सुरू करा","प्रवास सुरू करा","लॉग इन","खाते तयार करा","पाहुणा म्हणून सुरू ठेवा","तुमचा दिवस नोंदवा","तुमचे कॅलेंडर","तुमची अंतर्दृष्टी","मूड आराम","आजचे पाणी","तुम्हाला कसे वाटते?","शुभ प्रभात","नमस्कार","शुभ संध्या","गर्भधारणा आणि सुरक्षितता","नोंद जतन करा","भाषा"],
+es:["Hoy","Registro","Calendario","Resumen","Relajarse","Aprender","Pregunta a Mivi","Diario","Cuenta","Seguridad","Ajustes","Comienza tu viaje con Mivi","Comienza tu viaje","Iniciar sesión","Crear cuenta","Continuar como invitada","Registra tu día","Tu calendario","Tus datos","Alivio del ánimo","Agua de hoy","¿Cómo te sientes?","Buenos días","Buenas tardes","Buenas noches","Embarazo y seguridad","Guardar registro","Idioma"],
+fr:["Aujourd’hui","Suivi","Calendrier","Analyses","Détente","Apprendre","Demande à Mivi","Journal","Compte","Sécurité","Réglages","Commence ton voyage avec Mivi","Commence ton voyage","Se connecter","Créer un compte","Continuer en invitée","Note ta journée","Ton calendrier","Tes analyses","Apaiser l’humeur","Eau du jour","Comment te sens-tu ?","Bonjour","Bon après-midi","Bonsoir","Grossesse et sécurité","Enregistrer","Langue"]};
+LK.push(...["Predictions", "Your cycles", "Your patterns", "Gentle heads-up", "Next period", "Est. ovulation", "Fertile window", "Top symptoms", "Common mood", "Avg pain", "Avg sleep", "Simple patterns from what you log. Not medical advice.", "Menstrual", "Follicular", "Fertile window (est.)", "Estimated ovulation", "Luteal", "Period may be late", "Your period is here. Rest, warmth and iron-rich food may help.", "Energy often rises. A good time for new plans if you feel up to it.", "Ovulation is close. This is only an estimate.", "An egg is usually released around now. A calendar cannot pinpoint it.", "PMS symptoms can appear. Go gently and sleep well.", "Stress, illness or routine changes can delay it. If pregnancy is possible, a test can help.", "A gentle reminder", "Recent entries", "This month", "Open full calendar →", "I need a break", "+ Log today", "Bleeding", "Symptoms", "Mood", "Energy", "Sleep (hours)", "Movement", "Minutes", "Private note"]);const X2={"hi": ["पूर्वानुमान", "आपके चक्र", "आपके पैटर्न", "कोमल सुझाव", "अगला पीरियड", "अनुमानित ओव्यूलेशन", "उर्वर अवधि", "मुख्य लक्षण", "आम मूड", "औसत दर्द", "औसत नींद", "आप जो दर्ज करती हैं, उससे बने सरल पैटर्न। यह चिकित्सा सलाह नहीं है।", "मासिक धर्म", "फॉलिक्युलर", "उर्वर अवधि (अनुमान)", "अनुमानित ओव्यूलेशन", "ल्यूटियल", "पीरियड देर से हो सकता है", "आपका पीरियड चल रहा है। आराम, गर्माहट और आयरन-युक्त भोजन मदद कर सकते हैं।", "ऊर्जा अक्सर बढ़ती है। मन हो तो नई योजनाओं का अच्छा समय।", "ओव्यूलेशन नज़दीक है। यह केवल एक अनुमान है।", "अब के आसपास अंडाणु निकलता है। कैलेंडर सटीक दिन नहीं बता सकता।", "पीएमएस के लक्षण आ सकते हैं। आराम से चलें और अच्छी नींद लें।", "तनाव, बीमारी या दिनचर्या में बदलाव से देरी हो सकती है। गर्भावस्था संभव हो तो जाँच मदद करेगी।", "एक कोमल याद", "हाल की प्रविष्टियाँ", "यह महीना", "पूरा कैलेंडर खोलें →", "मुझे थोड़ा विराम चाहिए", "+ आज दर्ज करें", "रक्तस्राव", "लक्षण", "मूड", "ऊर्जा", "नींद (घंटे)", "व्यायाम", "मिनट", "निजी नोट"], "mr": ["अंदाज", "तुमची चक्रे", "तुमचे पॅटर्न", "हळुवार सूचना", "पुढील पाळी", "अंदाजे ओव्हुलेशन", "सुपीक कालावधी", "प्रमुख लक्षणे", "नेहमीचा मूड", "सरासरी वेदना", "सरासरी झोप", "तुम्ही नोंदवलेल्या माहितीतून तयार झालेले साधे पॅटर्न. हा वैद्यकीय सल्ला नाही.", "मासिक पाळी", "फॉलिक्युलर", "सुपीक कालावधी (अंदाज)", "अंदाजे ओव्हुलेशन", "ल्युटियल", "पाळी उशिरा येऊ शकते", "तुमची पाळी सुरू आहे. विश्रांती, ऊब आणि लोहयुक्त आहार मदत करू शकतात.", "ऊर्जा अनेकदा वाढते. वाटल्यास नवीन योजनांसाठी चांगली वेळ.", "ओव्हुलेशन जवळ आहे. हा फक्त अंदाज आहे.", "आता साधारण याच सुमारास बीजांड सोडले जाते. कॅलेंडर अचूक दिवस सांगू शकत नाही.", "पीएमएसची लक्षणे दिसू शकतात. शांतपणे घ्या आणि चांगली झोप घ्या.", "ताणतणाव, आजार किंवा दिनक्रमातील बदलांमुळे उशीर होऊ शकतो. गर्भधारणेची शक्यता असल्यास चाचणी मदत करेल.", "एक हळुवार आठवण", "अलीकडील नोंदी", "हा महिना", "पूर्ण कॅलेंडर उघडा →", "मला थोडा विराम हवा आहे", "+ आज नोंदवा", "रक्तस्राव", "लक्षणे", "मूड", "ऊर्जा", "झोप (तास)", "व्यायाम", "मिनिटे", "खाजगी नोंद"], "es": ["Predicciones", "Tus ciclos", "Tus patrones", "Aviso amable", "Próximo período", "Ovulación est.", "Ventana fértil", "Síntomas principales", "Ánimo habitual", "Dolor medio", "Sueño medio", "Patrones sencillos de lo que registras. No es consejo médico.", "Menstrual", "Folicular", "Ventana fértil (est.)", "Ovulación estimada", "Lútea", "Posible retraso del período", "Tu período ha llegado. El descanso, el calor y los alimentos ricos en hierro pueden ayudar.", "La energía suele subir. Buen momento para nuevos planes si te apetece.", "La ovulación está cerca. Es solo una estimación.", "Un óvulo suele liberarse por ahora. Un calendario no puede precisar el día.", "Pueden aparecer síntomas del SPM. Ve con calma y duerme bien.", "El estrés, la enfermedad o los cambios de rutina pueden retrasarlo. Si hay posibilidad de embarazo, una prueba puede ayudar.", "Un recordatorio amable", "Registros recientes", "Este mes", "Abrir calendario completo →", "Necesito un descanso", "+ Registrar hoy", "Sangrado", "Síntomas", "Ánimo", "Energía", "Sueño (horas)", "Movimiento", "Minutos", "Nota privada"], "fr": ["Prévisions", "Tes cycles", "Tes tendances", "Petit conseil", "Prochaines règles", "Ovulation est.", "Fenêtre fertile", "Symptômes principaux", "Humeur fréquente", "Douleur moyenne", "Sommeil moyen", "Des tendances simples tirées de ce que tu notes. Pas un avis médical.", "Menstruelle", "Folliculaire", "Fenêtre fertile (est.)", "Ovulation estimée", "Lutéale", "Règles peut-être en retard", "Tes règles sont là. Repos, chaleur et aliments riches en fer peuvent aider.", "L’énergie remonte souvent. Bon moment pour de nouveaux projets si tu te sens prête.", "L’ovulation est proche. Ce n’est qu’une estimation.", "Un ovule est en général libéré vers maintenant. Un calendrier ne peut pas donner le jour exact.", "Des symptômes du SPM peuvent apparaître. Vas-y doucement et dors bien.", "Le stress, une maladie ou un changement de routine peuvent retarder les règles. Si une grossesse est possible, un test peut aider.", "Un doux rappel", "Notes récentes", "Ce mois-ci", "Ouvrir le calendrier complet →", "J’ai besoin d’une pause", "+ Noter aujourd’hui", "Saignement", "Symptômes", "Humeur", "Énergie", "Sommeil (heures)", "Mouvement", "Minutes", "Note privée"]};for(const l in X2)LT[l].push(...X2[l]);
+const EX=`Date|तारीख|तारीख|Fecha|Date
+No bleeding|रक्तस्राव नहीं|रक्तस्राव नाही|Sin sangrado|Pas de saignement
+Spotting|हल्की स्पॉटिंग|हलका स्पॉटिंग|Manchado|Spotting
+Light|हल्का|हलका|Leve|Léger
+Medium|मध्यम|मध्यम|Medio|Moyen
+Heavy|भारी|जास्त|Abundante|Abondant
+Cramps|ऐंठन|पोटात कळा|Cólicos|Crampes
+Bloating|पेट फूलना|पोट फुगणे|Hinchazón|Ballonnements
+Headache|सिरदर्द|डोकेदुखी|Dolor de cabeza|Mal de tête
+Backache|कमरदर्द|पाठदुखी|Dolor de espalda|Mal de dos
+Fatigue|थकान|थकवा|Fatiga|Fatigue
+Nausea|मतली|मळमळ|Náuseas|Nausées
+Cravings|खाने की तलब|खाण्याची इच्छा|Antojos|Envies
+Low mood|उदास मन|उदास मनःस्थिती|Ánimo bajo|Moral en baisse
+Poor sleep|कम नींद|कमी झोप|Mal sueño|Sommeil agité
+Low|कम|कमी|Bajo|Faible
+High|ज़्यादा|जास्त|Alto|Élevé
+Happy|खुश|आनंदी|Feliz|Joyeuse
+Calm|शांत|शांत|Tranquila|Calme
+Tired|थकी हुई|थकलेली|Cansada|Fatiguée
+Irritable|चिड़चिड़ी|चिडचिडी|Irritable|Irritable
+Sad|उदास|दुःखी|Triste|Triste
+Anxious|चिंतित|चिंताग्रस्त|Ansiosa|Anxieuse
+Loved|प्यार महसूस|प्रेम वाटणे|Querida|Aimée
+Overwhelmed|बहुत दबाव में|भारावलेली|Abrumada|Dépassée
+Rest day|आराम का दिन|विश्रांतीचा दिवस|Día de descanso|Jour de repos
+Walking|टहलना|चालणे|Caminar|Marche
+Delete this day|इस दिन को हटाएँ|हा दिवस हटवा|Eliminar este día|Supprimer ce jour
+Start|शुरू करें|सुरू करा|Empezar|Démarrer
+Send|भेजें|पाठवा|Enviar|Envoyer
+Clear|साफ़ करें|पुसून टाका|Borrar|Effacer
+Another|एक और|आणखी एक|Otra|Une autre
+Another tip|एक और सुझाव|आणखी एक टीप|Otro consejo|Un autre conseil
+Next step|अगला कदम|पुढील पायरी|Siguiente paso|Étape suivante
+New game|नया खेल|नवीन खेळ|Juego nuevo|Nouvelle partie
+Myth|मिथक|गैरसमज|Mito|Mythe
+Fact|तथ्य|तथ्य|Realidad|Fait
+Name|नाम|नाव|Nombre|Nom
+Age|उम्र|वय|Edad|Âge
+Dark mode|डार्क मोड|डार्क मोड|Modo oscuro|Mode sombre
+Log out|लॉग आउट|लॉग आउट|Cerrar sesión|Se déconnecter
+Privacy|गोपनीयता|गोपनीयता|Privacidad|Confidentialité
+Theme|थीम|थीम|Tema|Thème
+Save|सहेजें|जतन करा|Guardar|Enregistrer
+My journal|मेरी डायरी|माझी डायरी|Mi diario|Mon journal
+Past notes|पुराने नोट्स|जुन्या नोंदी|Notas anteriores|Notes précédentes
+Save note|नोट सहेजें|नोंद जतन करा|Guardar nota|Enregistrer la note
+Your thoughts|आपके विचार|तुमचे विचार|Tus pensamientos|Tes pensées
+Kind words|अच्छे शब्द|प्रेमळ शब्द|Palabras amables|Mots doux
+Grounding|ग्राउंडिंग|ग्राउंडिंग|Conexión a tierra|Ancrage
+Gentle breathing|कोमल साँसें|सौम्य श्वास|Respiración suave|Respiration douce
+Myth or fact?|मिथक या तथ्य?|गैरसमज की तथ्य?|¿Mito o realidad?|Mythe ou vrai ?
+Memory match|मेमोरी मैच|मेमरी मॅच|Memoria|Jeu de mémoire
+Learn about your body|अपने शरीर के बारे में जानें|तुमच्या शरीराबद्दल जाणून घ्या|Aprende sobre tu cuerpo|Découvre ton corps
+Your cycle in four phases|चार चरणों में आपका चक्र|चार टप्प्यांतील तुमचे चक्र|Tu ciclo en cuatro fases|Ton cycle en quatre phases
+Ovulation|ओवुलेशन|ओव्ह्युलेशन|Ovulación|Ovulation
+Myths & facts|मिथक और तथ्य|गैरसमज आणि तथ्ये|Mitos y realidades|Mythes et réalités
+When to see a doctor|डॉक्टर को कब दिखाएँ|डॉक्टरांना कधी दाखवावे|Cuándo ver a un médico|Quand consulter un médecin
+Prevention & precautions|बचाव और सावधानियाँ|प्रतिबंध आणि खबरदारी|Prevención y precauciones|Prévention et précautions
+What to do next|आगे क्या करें|पुढे काय करावे|Qué hacer después|Que faire ensuite
+Cycle length|चक्र की लंबाई|चक्राची लांबी|Duración del ciclo|Durée du cycle
+Period length (days)|पीरियड की अवधि (दिन)|पाळीचा कालावधी (दिवस)|Duración del periodo (días)|Durée des règles (jours)
+First day of last period|पिछले पीरियड का पहला दिन|मागील पाळीचा पहिला दिवस|Primer día del último periodo|Premier jour des dernières règles
+cycle day|चक्र दिवस|चक्र दिवस|día del ciclo|jour du cycle
+day streak|दिन लगातार|दिवस सलग|días seguidos|jours d’affilée
+days logged|दिन दर्ज|दिवस नोंदवले|días registrados|jours enregistrés
+glasses today|आज के गिलास|आजचे ग्लास|vasos hoy|verres aujourd’hui
+Open settings|सेटिंग्स खोलें|सेटिंग्ज उघडा|Abrir ajustes|Ouvrir les réglages
+Read aloud|ज़ोर से पढ़ें|मोठ्याने वाचा|Leer en voz alta|Lire à voix haute
+Stop reading|पढ़ना रोकें|वाचन थांबवा|Dejar de leer|Arrêter la lecture`.split("\n").map(r=>r.split("|"));
+{const lg=["hi","mr","es","fr"];EX.forEach(r=>{let i=LK.indexOf(r[0]);if(i<0)i=LK.push(r[0])-1;lg.forEach((l,j)=>{(LT[l]=LT[l]||[])[i]=r[j+1]})})}
+const FX=`Gentle walks, stretching or yoga, or rest.|हल्की सैर, स्ट्रेचिंग, योग या आराम।|हलके चालणे, स्ट्रेचिंग, योग किंवा विश्रांती.|Paseos suaves, estiramientos, yoga o descanso.|Marche douce, étirements, yoga ou repos.
+Good energy for cardio or strength.|कार्डियो या strength व्यायाम के लिए अच्छी ऊर्जा।|कार्डिओ किंवा ताकदीच्या व्यायामासाठी चांगली ऊर्जा.|Buena energía para cardio o fuerza.|Bonne énergie pour le cardio ou la musculation.
+Most activities feel fine; listen to your body.|ज़्यादातर गतिविधियाँ ठीक लगती हैं; अपने शरीर की सुनें।|बहुतेक हालचाली ठीक वाटतात; शरीराचे ऐका.|La mayoría de actividades van bien; escucha a tu cuerpo.|La plupart des activités conviennent ; écoute ton corps.
+Most activities feel fine; stay hydrated.|ज़्यादातर गतिविधियाँ ठीक लगती हैं; पानी पीती रहें।|बहुतेक हालचाली ठीक वाटतात; भरपूर पाणी प्या.|La mayoría de actividades van bien; mantente hidratada.|La plupart des activités conviennent ; hydrate-toi bien.
+Moderate workouts, yoga or walks; rest when tired.|हल्की कसरत, योग या सैर; थकान हो तो आराम करें।|मध्यम व्यायाम, योग किंवा चालणे; थकल्यास विश्रांती घ्या.|Ejercicio moderado, yoga o paseos; descansa si estás cansada.|Exercice modéré, yoga ou marche ; repose-toi si tu es fatiguée.
+Keep movement gentle and comfortable.|हलचल हल्की और आरामदायक रखें।|हालचाल सौम्य आणि आरामदायक ठेवा.|Mantén el movimiento suave y cómodo.|Garde un mouvement doux et confortable.
+your cycle, understood|आपका चक्र, आसान भाषा में|तुमचे चक्र, सोप्या भाषेत|tu ciclo, comprendido|ton cycle, compris
+Add your last period date|अपने पिछले पीरियड की तारीख जोड़ें|तुमच्या मागील पाळीची तारीख जोडा|Añade la fecha de tu último periodo|Ajoute la date de tes dernières règles
+Next period: not enough data|अगला पीरियड: पर्याप्त डेटा नहीं|पुढील पाळी: पुरेशी माहिती नाही|Próximo periodo: faltan datos|Prochaines règles : pas assez de données
+Your period is expected today|आपका पीरियड आज अपेक्षित है|तुमची पाळी आज अपेक्षित आहे|Tu periodo se espera hoy|Tes règles sont attendues aujourd’hui
+Mark a period start in the calendar or Settings and Mivi will estimate your next one. Predictions are estimates.|कैलेंडर या सेटिंग्स में पीरियड की शुरुआत चुनें, फिर Mivi आपका अगला पीरियड अनुमानित करेगी। पूर्वानुमान केवल अनुमान हैं।|कॅलेंडर किंवा सेटिंग्जमध्ये पाळीची सुरुवात निवडा, मग Mivi पुढची पाळी अंदाजे सांगेल. अंदाज फक्त अंदाज असतात.|Marca el inicio de un periodo en el calendario o en Ajustes y Mivi estimará el siguiente. Las predicciones son estimaciones.|Note le début de tes règles dans le calendrier ou les réglages et Mivi estimera les prochaines. Les prédictions sont des estimations.`.split("\n").map(r=>r.split("|"));let PR=null;
+const RL=[[/Next period in ~(\d+) days?/g,["अगला पीरियड लगभग $1 दिन में", "पुढची पाळी सुमारे $1 दिवसांत", "Próximo periodo en ~$1 días", "Prochaines règles dans ~$1 jours"]],[/Estimated (.+?) \(cycle ~(\d+) days\)\./g,["अनुमानित $1 (चक्र ~$2 दिन)।", "अंदाजे $1 (चक्र ~$2 दिवस).", "Estimado: $1 (ciclo ~$2 días).", "Estimation : $1 (cycle ~$2 jours)."]],[/Movement idea:/g,["व्यायाम सुझाव:", "व्यायाम सूचना:", "Idea de movimiento:", "Idée de mouvement :"]],[/Day (\d+) of about (\d+)\./g,["दिन $1, चक्र लगभग $2 दिन का।", "दिवस $1, चक्र सुमारे $2 दिवसांचे.", "Día $1 de unos $2.", "Jour $1 sur environ $2."]],[/ · Account$/g,[" · खाता", " · खाते", " · Cuenta", " · Compte"]]];
+function phr(s){const k=["hi","mr","es","fr"].indexOf(S.lang);if(k<0)return s;
+ if(!PR){PR=[];FX.forEach(r=>PR.push([r[0],r.slice(1)]));LK.forEach((e,i)=>{if(e.length>=25&&LT.hi&&LT.hi[i])PR.push([e,["hi","mr","es","fr"].map(l=>(LT[l]||[])[i])])});PR.sort((a,b)=>b[0].length-a[0].length)}
+ PR.forEach(p=>{if(s.includes(p[0])&&p[1][k])s=s.split(p[0]).join(p[1][k])});
+ RL.forEach(([r,t])=>{s=s.replace(r,(...a)=>t[k].replace(/\$(\d)/g,(_,d)=>a[d]))});return s}
+const tt=k=>{const a=LT[S.lang],i=LK.indexOf(k);return a&&i>=0?a[i]:k};
+const TXT=new WeakMap(),RX=/^([\p{Extended_Pictographic}\uFE0F\u200D\s]*)(.*?)([\p{Extended_Pictographic}\uFE0F\u200D\s]*)$/su;let trBusy=0;
+function tr(){trBusy=1;const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+ while(n=w.nextNode()){const raw=TXT.get(n)||n.nodeValue,m=raw.match(RX);if(!m)continue;const i=LK.indexOf(m[2]),a=LT[S.lang];let nv;if(i>=0)nv=m[1]+((a&&a[i])||m[2])+m[3];else{nv=phr(raw);if(nv===raw&&!TXT.has(n))continue}TXT.set(n,raw);if(n.nodeValue!==nv)n.nodeValue=nv}
+ document.querySelectorAll("[placeholder],[aria-label],[title]").forEach(e=>["placeholder","aria-label","title"].forEach(t=>{if(!e.hasAttribute(t))return;const k="_o"+t;if(e[k]===undefined)e[k]=e.getAttribute(t);const i=LK.indexOf(e[k]),L=LT[S.lang];if(i<0)return;const v=(L&&L[i])||e[k];if(e.getAttribute(t)!==v)e.setAttribute(t,v)}));trBusy=0}
+function setLang(v){S.lang=v;sv();document.documentElement.lang=v;document.querySelectorAll(".langsel").forEach(x=>x.value=v);home();mf();tr()}
+
+/* PREGNANCY CHANCE + SAFETY (age aware) */
+const isTeen=()=>S.age&&+S.age<18;
+const TEENP="Your safety matters most. Waiting is always the safest choice, and you never have to do anything you do not want to. If you are worried about pregnancy, please tell a trusted adult or see a doctor soon; they can help privately and kindly. Home pregnancy tests work best from the first day of a missed period. If anyone pressured or forced you, tell a trusted adult or call Childline 1098 (India, free, 24/7). The Safety page has more.";
+function pregRisk(){const t=pd(iso());if(S.snz&&S.snz>=iso())return null;const i=info(t);
+ if(i&&i.ph==="late"&&i.day-i.cyc>=7)return{why:"late",n:i.day-i.cyc};
+ if(!isTeen()){const u=Object.keys(S.e).filter(k=>S.e[k].sex==="unprotected"&&df(pd(k),t)>=0&&df(pd(k),t)<=35).sort().pop();
+  if(u&&!starts().some(x=>x>u&&pd(x)<=t))return{why:"sex",n:df(pd(u),t)}}
+ return null}
+const pwhy=r=>r.why==="late"?`Your period is about ${r.n} days late.`:`You logged unprotected intimacy ${r.n} days ago.`;
+function pregCard(){const pr=pregRisk();$("hero").classList.toggle("hide",!!pr);$("minin").classList.toggle("hide",!!pr);
+ $("pcard").innerHTML=pr?`<div class="card" style="border:2px solid var(--ac)"><h2>🤍 Let us check in gently</h2><p>${pwhy(pr)} This does <b>not</b> mean you are pregnant, but it is worth checking calmly. Your next-period estimate is hidden until then.</p><button class="btn" onclick="go('preg')">See what to do next 🤍</button> <button class="btn s" onclick="S.snz=iso(add(pd(iso()),3));sv();home()">Remind me later</button></div>`:""}
+function autoPreg(){if(pregRisk()&&S.pgShown!==iso()){S.pgShown=iso();sv();go("preg")}}
+function pregRender(){const teen=isTeen(),pr=pregRisk();
+ const top=pr?`<div class="card" style="border:2px solid var(--ac)"><h2>💛 First, take a breath</h2><p>${pwhy(pr)} Many things can delay a period, such as stress, illness or routine changes, so this does not mean you are pregnant. Here is what to do, step by step.</p></div>`:"";
+ const steps=`<div class="card"><h2>🪜 What to do next</h2>
+ <details open><summary>1. Take a home pregnancy test</summary><p>Tests are most reliable from the first day of a missed period, or about 3 weeks after the event that worried you. Use first-morning urine and follow the instructions. If it is negative but your period still does not come, test again after a few days.</p></details>
+ <details><summary>2. Talk to someone you trust</summary><p>${teen?"Please tell a parent, guardian, school nurse or another adult you trust. You deserve support, and asking for help is not wrong.":"Share with a partner, friend or family member you trust, so you are not alone."}</p></details>
+ <details><summary>3. See a doctor or clinic</summary><p>A doctor can confirm with a test, check why your period is late and explain your options. ${teen?"A doctor can help privately and kindly.":""}</p></details>
+ <details><summary>4. Time-sensitive: emergency contraception</summary><p>If there was unprotected sex in the last 3 to 5 days, a pharmacist or doctor can explain emergency contraception, which works better the sooner it is taken. It is for emergencies, not regular use. ${teen?"Please ask a trusted adult to go with you.":""}</p></details>
+ <details><summary>5. Do not self-medicate</summary><p>Do not take tablets, herbs or home remedies to “bring on” a period. They can be unsafe. Ask a doctor first.</p></details></div>`;
+ const prevent=teen?`<div class="card"><h2>💛 Staying safe (under 18)</h2><p>Your body, your choice. You never have to do anything you do not want to, and you can say no at any time. Waiting is always the safest choice for your health.</p>
+ <details><summary>Know your rights</summary><p>Nobody should pressure, trick or force you, whatever their age or relationship to you. If someone does, or an older person is pursuing you, tell a trusted adult. In India, Childline 1098 is free and open 24/7.</p></details>
+ <details><summary>Ask questions safely</summary><p>A doctor, school nurse or counsellor can answer questions about your body in private and without judgement. You can also use Ask Mivi for general questions.</p></details>
+ <details><summary>Calendar apps are not protection</summary><p>No app or calendar can tell you which days are safe. Please never rely on tracking to avoid pregnancy.</p></details></div>`
+ :`<div class="card"><h2>🛡️ Prevention &amp; precautions</h2>
+ <details open><summary>Use protection every time</summary><p>Condoms lower the risk of pregnancy and also protect against infections. Check the expiry date and use a new one every time.</p></details>
+ <details><summary>Consider regular contraception</summary><p>A doctor or clinic can explain options like pills, injections, implants or IUDs, and help you choose what suits your health and plans.</p></details>
+ <details><summary>Calendar apps are not contraception</summary><p>Fertile windows and “safe days” are only estimates. Cycles shift with stress, illness and travel, and sperm can survive up to 5 days.</p></details>
+ <details><summary>Protect against infections</summary><p>Barrier protection helps prevent infections. Get regular check-ups, and see a doctor for unusual discharge, sores, pain or itching.</p></details>
+ <details><summary>Consent and comfort</summary><p>Intimacy should always be your choice, with clear agreement from both people. You can change your mind at any time.</p></details></div>`;
+ const warn=`<div class="note"><b>Go to a hospital urgently</b> for severe one-sided belly pain, heavy bleeding (soaking a pad every hour), fainting or dizziness. These can be serious whether or not pregnancy is possible.</div>`;
+ const acts=`<div class="card" style="text-align:center"><button class="btn" onclick="go('chat')">💬 Ask Mivi</button> <button class="btn s" onclick="go('log')">📝 Log how I feel</button>${pr?` <button class="btn s" onclick="S.snz=iso(add(pd(iso()),3));sv();pregRender();home()">I have checked, remind me later</button>`:""}</div>`;
+ $("pgb").innerHTML=top+steps+prevent+warn+acts}
+
+/* TOPBAR, MINI CALENDAR, ACCOUNT */
+function topbar(){$("topbar").innerHTML=S.pin?`<button class="chip" onclick="go('acct')">🌷 ${esc(S.name)} · Account</button>`:`<button class="chip on" onclick="go('acct')">🔑 Create account</button>`}
+const MK={per:"🩸",pre:"🌸",ovu:"✨",fer:"🌼"};
+function cellHTML(dt,d,mini){const o=dcls(dt),ph=o.i?" p-"+o.i.ph:"",mk=MK[o.c.trim().split(" ")[0]]||"",mood=o.e&&o.e.mood?ME[o.e.mood]:"",we=dt.getDay()%6===0?" we":"";
+ return `<button class="${o.c}${ph}${we}" title="${o.i?"Cycle day "+o.i.day+" · "+PH[o.i.ph][0]:""}" onclick="${mini?"go('cal');":""}pickDay('${o.k}')"><b>${d}</b>${mk?`<em>${mk}</em>`:""}${mood?`<u>${mood}</u>`:o.e?"<i></i>":""}</button>`}
+function dcls(dt){const k=iso(dt),e=S.e[k],i=info(dt);let c="";
+ if(e&&["light","medium","heavy"].includes(e.flow))c="per";else if(i&&i.ph==="mens"&&dt>pd(iso()))c="pre";else if(i&&i.ph==="ovu")c="ovu";else if(i&&i.ph==="fert")c="fer";
+ if(k===iso())c+=" td";return{c,i,k,e}}
+function miniCal(){const n0=new Date(),y=n0.getFullYear(),m=n0.getMonth(),f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate();
+ $("minit").textContent=n0.toLocaleDateString(LOC(),{month:"long",year:"numeric"});
+ let h=["S","M","T","W","T","F","S"].map((d,x)=>`<div${x===n0.getDay()?' style="color:var(--p)"':""}>${d}</div>`).join("")+"<span></span>".repeat(f);
+ for(let d=1;d<=n;d++)h+=cellHTML(new Date(y,m,d,12),d,1);
+ $("mini").innerHTML=h;
+ const t=pd(iso()),i=info(t),c=stats().avg;let ch=[];
+ if(i){let nx=add(i.b,c);while(nx<t)nx=add(nx,c);ch.push("🌸 Period in ~"+df(t,nx)+"d");const ov=add(nx,-14);if(df(t,ov)>=0)ch.push("✨ Ovulation in ~"+df(t,ov)+"d");ch.push(PH[i.ph][0]+" · day "+i.day)}
+ else ch.push("Add your last period date to see predictions");
+ $("minin").innerHTML=ch.map(x=>`<span class="pill">${x}</span>`).join("")}
+function acctRender(){const g=!S.pin;
+ $("ab").innerHTML=g?`<div class="card"><div class="avatar">🌷</div><h2 style="justify-content:center">You are browsing as a guest</h2><p class="mu" style="text-align:center">Create an account to lock Mivi with a PIN and keep your cycle private. Everything stays on this device.</p>
+ <label class="f" for="ac_n">Name</label><input id="ac_n" maxlength="30" value="${esc(S.name)}" placeholder="Your name"><div class="g2"><div><label class="f" for="ac_p1">PIN (4–6 digits)</label><input id="ac_p1" class="pin" type="password" inputmode="numeric" maxlength="6"></div><div><label class="f" for="ac_p2">Confirm PIN</label><input id="ac_p2" class="pin" type="password" inputmode="numeric" maxlength="6"></div></div>
+ <p class="err" id="acerr" role="alert"></p><button class="btn" onclick="acctCreate()">Create account 🔒</button></div>`
+ :`<div class="card" style="text-align:center"><div class="avatar">${esc((S.name||"M")[0].toUpperCase())}</div><h2 style="justify-content:center">Hi, ${esc(S.name)} 🌷</h2><p class="mu">You are logged in${S.since?" · with Mivi since "+fm(pd(S.since),1):""}</p>
+ <p><span class="pill">📝 ${Object.keys(S.e).length} days logged</span><span class="pill">📔 ${S.j.length} notes</span><span class="pill">${S.rem?"🔓 Remembered on this device":"🔒 Asks for PIN each visit"}</span></p>
+ <button class="btn s" onclick="setPin()">Change PIN</button> <button class="btn s" onclick="go('set')">Edit profile</button> <button class="btn" onclick="logout()">Log out 👋</button></div>`}
+function acctCreate(){const n=$("ac_n").value.trim(),p=$("ac_p1").value,e=$("acerr");
+ if(!n){e.textContent="Please enter your name.";return}if(!/^\d{4,6}$/.test(p)){e.textContent="Your PIN must be 4–6 digits.";return}if(p!==$("ac_p2").value){e.textContent="The two PINs do not match.";return}
+ S.name=n;S.pin=hp(p);S.done=1;S.since=S.since||iso();try{sessionStorage.setItem("mivi_ok","1")}catch(_){}sv();toast("Account created 🌷");topbar();acctRender();home()}
+
+/* AUTH */
+const hp=p=>{let h=5381;for(const c of "mivi·"+p)h=(h*33)^c.charCodeAt(0);return(h>>>0).toString(36)};
+const okSess=()=>{try{return sessionStorage.getItem("mivi_ok")==="1"}catch(_){return false}};
+const aerr=m=>{$("aerr").textContent=m};
+function unlock(rem){setTimeout(autoPreg,300);try{sessionStorage.setItem("mivi_ok","1")}catch(_){}S.rem=rem?1:0;if(!S.since)S.since=iso();sv();aerr("");$("auth").classList.add("hide");home();setfill()}
+let NOAUTH=0;
+function authInit(){$("ob").classList.add("hide");
+ $("intro").classList.remove("hide");$("auth").classList.add("hide");if(S.pin?(S.rem||okSess()):S.done){NOAUTH=1;return}
+ const has=!!S.pin;$("auth").classList.add("hide");$("intro").classList.remove("hide");$("lf").classList.toggle("hide",!has);$("sf").classList.toggle("hide",has);
+ $("at").textContent=has?"Welcome back"+(S.name?", "+S.name:"")+" 🌷":"Welcome to Mivi";
+ $("as").textContent=has?"Enter your PIN to open your private space.":"Create a private account on this device, or continue as a guest."}
+(function(){const e=["🌸","💗","🌷","✨","🌺"];$("petals").innerHTML=Array.from({length:16},(_,i)=>`<span style="left:${Math.random()*95}%;font-size:${14+Math.random()*18}px;animation-duration:${9+Math.random()*9}s;animation-delay:${-Math.random()*14}s">${e[i%5]}</span>`).join("")})();
+function beginJourney(){$("intro").classList.add("hide");if(NOAUTH)return;$("auth").classList.remove("hide");const f=$("lf").classList.contains("hide")?$("au_n"):$("lp");setTimeout(()=>f.focus(),50)}
+function signup(){const n=$("au_n").value.trim(),p=$("au_p1").value;
+ if(!n){aerr("Please enter your name.");return}if(!/^\d{4,6}$/.test(p)){aerr("Your PIN must be 4–6 digits.");return}if(p!==$("au_p2").value){aerr("The two PINs do not match.");return}const ag=+$("au_a").value;if(!ag||ag<8||ag>70){aerr("Please enter your age (8 to 70).");return}S.age=ag;
+ S.name=n;S.pin=hp(p);S.done=1;unlock($("au_r").checked)}
+function guest(){const a=+prompt("How old are you? This helps Mivi keep advice safe and suitable for you.");if(a>=8&&a<=70)S.age=a;S.done=1;unlock(false)}
+function login(){if(hp($("lp").value)===S.pin){$("lp").value="";unlock($("lr").checked)}else{aerr("Incorrect PIN. Please try again.");$("lp").select()}}
+function forgot(){if(!confirm("A forgotten PIN cannot be recovered. To continue you must erase all Mivi data on this device. Erase and start over?"))return;try{localStorage.removeItem(K);sessionStorage.clear()}catch(_){}location.reload()}
+function logout(){if(!S.pin){toast("Set a PIN first to use log in");return}try{sessionStorage.removeItem("mivi_ok")}catch(_){}S.rem=0;sv();location.reload()}
+function setPin(){const p=prompt("Choose a new PIN (4–6 digits):");if(p===null)return;if(!/^\d{4,6}$/.test(p)){toast("PIN must be 4–6 digits");return}S.pin=hp(p);sv();toast("PIN saved 🔒")}
+
+/* GAMES: myth-or-fact quiz + memory match */
+let qi=[],qn=0,qs=0,qd=false;
+function qz(){qi=MF.map((x,i)=>[x[0],x[1],i]).sort(()=>Math.random()-.5).slice(0,8);qn=0;qs=0;qshow()}
+function qshow(){$("qzf").innerHTML="";
+ if(qn>=qi.length){$("qzq").textContent=`You got ${qs} of ${qi.length} right 🌸`;$("qza").innerHTML='<button class="btn" onclick="qz()">Play again</button>';return}
+ qd=false;$("qzq").textContent=`${qn+1}/${qi.length}: ${mfx(qi[qn][2],0)}`;$("qza").innerHTML='<button class="btn" onclick="qans(1)">Myth</button> <button class="btn s" onclick="qans(0)">Fact</button>'}
+function qans(m){if(qd)return;qd=true;const it=qi[qn],ok=(m===1)===it[1].startsWith("Myth");if(ok)qs++;
+ $("qzf").innerHTML=`<div class="note">${ok?"Correct! ":"Not quite. "}${esc(mfx(it[2],1))}</div><button class="btn sm" onclick="qn++;qshow()">Next</button>`}
+let mcs=[],mo=[],mmv=0,mlk=0;
+function mem(){const e=["🌸","🍃","💧","🌙","✨","🫖"];mcs=[...e,...e].sort(()=>Math.random()-.5);mo=[];mmv=0;mlk=0;$("mcount").textContent=0;
+ $("mgrid").innerHTML=mcs.map((c,i)=>`<button aria-label="card ${i+1}" onclick="flip(${i},this)">?</button>`).join("")}
+function flip(i,b){if(mlk||b.classList.contains("on"))return;b.classList.add("on");b.textContent=mcs[i];mo.push([i,b]);if(mo.length<2)return;
+ $("mcount").textContent=++mmv;const[a,c]=mo;mo=[];
+ if(mcs[a[0]]===mcs[c[0]]){a[1].classList.add("ok");c[1].classList.add("ok");if(document.querySelectorAll("#mgrid .ok").length===12)toast("All matched! 🌸")}
+ else{mlk=1;setTimeout(()=>{[a[1],c[1]].forEach(x=>{x.classList.remove("on");x.textContent="?"});mlk=0},800)}}
+
+/* READ ALOUD */
+let rdg=0;
+function stopRead(){if(window.speechSynthesis)speechSynthesis.cancel();rdg=0;const f=$("fab");if(f){f.textContent="🔊 Read aloud";f.classList.remove("on")}}
+const VL={en:"en-IN",hi:"hi-IN",mr:"mr-IN",es:"es-ES",fr:"fr-FR"};
+function pickVoice(l){const vs=speechSynthesis.getVoices(),p=l.slice(0,2),n=x=>x.lang.replace("_","-").toLowerCase();return vs.find(v=>n(v)===l.toLowerCase())||vs.find(v=>n(v).startsWith(p))||(p==="mr"?vs.find(v=>n(v).startsWith("hi")):null)}
+function readNow(){if(!window.speechSynthesis){toast("Read aloud is not supported in this browser");return}
+ if(rdg){stopRead();return}
+ const v=document.querySelector(".v.on").cloneNode(true);v.querySelectorAll("button,input,select,textarea,svg,script,style,.cal").forEach(x=>x.remove());
+ const txt=v.innerHTML.replace(/<[^>]+>/g," ").replace(/&amp;/g,"&").replace(/&nbsp;/g," ").replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu,"").replace(/\s+/g," ").trim();if(!txt)return;
+ const L=VL[S.lang]||"en-IN",vc=pickVoice(L);if(!vc&&S.lang!=="en")toast("No "+L+" voice found on this device. Install one in your system speech settings.");
+ const ch=[];(txt.slice(0,6000).match(/[^.!?\u0964]+[.!?\u0964]*\s*/g)||[txt]).forEach(x=>{if(ch.length&&ch[ch.length-1].length+x.length<180)ch[ch.length-1]+=x;else ch.push(x)});
+ speechSynthesis.cancel();rdg=1;$("fab").textContent="\u23f9 Stop reading";$("fab").classList.add("on");tr();
+ ch.forEach((c,k)=>{const u=new SpeechSynthesisUtterance(c);u.lang=vc?vc.lang:L;if(vc)u.voice=vc;u.rate=.95;if(k===ch.length-1)u.onend=u.onerror=stopRead;else u.onerror=stopRead;speechSynthesis.speak(u)})}
+
+/* CHAT */
+const URG=/faint|pass(ed)? out|can.?t breathe|chest pain|soak.{0,25}(pad|tampon)|(pad|tampon).{0,25}(every|each) hour|severe pain|unbearable|toxic shock/,CRI=/suicid|kill myself|end my life|want to die|self.?harm|hurt myself/;
+const KB=[["cramp|pain|ache|hurt|dard","Cramps happen as the uterus tightens, driven by prostaglandins. What often helps:\n• Warm compress on lower belly or back\n• Gentle walking, stretching, child’s pose\n• Warm drinks, water, rest\n• An over-the-counter pain reliever only if suitable for you; follow the label and ask a pharmacist if unsure\n\nSee a doctor if pain is severe, worsening, or stops school/work."],
+["heavy|clot|too much blood|anaemi|anemi","Heavy flow is common on days 1–2 and small clots can be normal. See a doctor if you soak a pad every 1–2 hours, clots are bigger than a coin, periods last over 7 days, or you feel dizzy or very tired (possible low iron). Go urgently if soaking through every hour for 2+ hours."],
+["late|missed|no period|delay|skipped","A late period can come from stress, illness, travel, weight or exercise changes, PCOS or thyroid issues, or pregnancy. If pregnancy is possible, take a home test. See a doctor if you miss 3 periods in a row."],
+["irregular|cycle normal|cycle length|normal cycle","Cycles are counted from day 1 of one period to day 1 of the next: usually 21–35 days in adults and 21–45 in teens, and they vary early on. Tracking here helps you see your own pattern."],
+["pcos|pcod|facial hair|thyroid","PCOS is a common hormonal condition: irregular periods, acne, extra hair, weight changes. Only a doctor can diagnose it, and it is manageable with lifestyle changes and sometimes medicine."],
+["spotting|between periods|brown","Light spotting can happen around ovulation, with hormonal birth control, stress or early pregnancy. Brown blood is usually older blood. See a doctor if it keeps happening or follows sex."],
+["pms|mood|irritab|angry|sad|anxious|cry|stress|emotional","Hormone shifts, pain and poor sleep can make feelings bigger before your period. Try slow breathing (in 4, out 6), a walk, journaling, or the Relax games. If low mood lasts over two weeks or feels too heavy, please talk to a doctor, counsellor or trusted adult."],
+["hygien|smell|wash|clean|itch|rash","Change pads every 4–6 hours, tampons every 4–8 (never longer), empty cups every 8–12. Wash hands before and after. Wash only the outside with water or mild unscented soap; avoid internal washes. A mild smell is normal; a strong foul smell, itching or fever needs a doctor."],
+["pad|tampon|cup|underwear","Pads are easiest to start; tampons suit swimming and sport; cups are reusable and hold more; period underwear is good for light days. There is no best option, so pick what is comfortable."],
+["discharge|white fluid|infection","Clear or white discharge is normal and changes through the cycle. See a doctor if it is green, yellow or grey, smells strongly, or comes with itching, burning or pain."],
+["food|eat|diet|iron|craving|water|caffeine","No strict diet is needed. Eat regular balanced meals, add iron (lentils, beans, spinach, eggs) with vitamin C (lemon, amla), drink water, and go easy on very salty food and too much caffeine. Cravings are normal."],
+["exercise|workout|yoga|walk|swim|gym","Exercise is fine during periods if you feel up to it and can ease cramps. Walking, yoga and stretching are good; rest on heavy days. Stop if you feel dizzy, faint or in worse pain."],
+["sleep|tired|fatigue|energy","Tiredness around periods is common. Keep a steady bedtime, switch screens off 30–60 minutes before bed, try a warm bath. If you are constantly exhausted or pale, ask a doctor to check iron and thyroid."],
+["bloat|gas|constipat|swollen","Bloating is common and temporary. Drink water, eat fibre, go easy on salty and fizzy foods, walk gently and use a warm compress."],
+["ovulat|fertile|safe day","Ovulation is when an egg is released, usually 10–16 days before the next period. Apps only estimate it. There are no truly safe days, and this cannot be used as birth control."],
+["pregnan|unprotected|condom|contracept|morning.?after|i-?pill","Pregnancy can happen at almost any point in the cycle, including during a period. Emergency contraception works best the sooner it is taken (ideally within 72 hours). A pharmacist or doctor can guide you, and your questions are welcome."],
+["first period|menarche|not started","Most people get their first period between 9 and 15, often 2–3 years after breast development starts. First periods can be light and irregular. If you are 15 with no period, a doctor can check."],
+["myth|true that|taboo|temple|kitchen|pickle|impure","Many restrictions are customs, not medical facts. Period blood is not dirty or impure, and you can bathe, wash your hair and exercise. Periods are a normal, healthy part of life."],
+["doctor|gynae|when should i","See a doctor for severe pain, very heavy bleeding, no period by 15, 3+ missed periods, cycles under 21 or over 45 days, bleeding between periods, foul discharge, or constant tiredness. Go urgently for fainting or soaking a pad every hour."]];
+const STR=["Why do I get cramps?","My period is late","Is my cycle normal?","Food to eat","When to see a doctor"];
+function reply(t){const q=t.toLowerCase();
+ if(CRI.test(q))return"I am really sorry you are hurting. You matter and do not have to go through this alone. Please reach out now to a trusted person or a crisis line. In India, Tele-MANAS is 14416 (free, 24/7). Elsewhere, contact your local emergency number. If you are in immediate danger, call emergency services.";
+ if(URG.test(q))return"This may need urgent medical care. Please go to a hospital or call your local emergency number now, and tell someone near you. I cannot assess emergencies through chat, so please do not wait.";
+ if(/^(hi|hello|hey|namaste)\b/.test(q))return"Hi! 🌸 Ask me about cramps, late periods, PMS, hygiene, food, exercise or tracking.";
+ if(/thank/.test(q))return"You are welcome! 💗";
+ let b=null,s=0;KB.forEach(k=>{const m=q.match(new RegExp("\\b("+k[0]+")","g"));const x=m?new Set(m).size:0;if(x>s){s=x;b=k}});
+ return b?(isTeen()&&b[0].startsWith("pregnan")?TEENP:b[1])+"\n\n(General information, not a diagnosis.)":"I am not sure I understood. Try rewording, or tap a topic below. For a symptom that worries you, a doctor is the best person to ask."}
+function msg(t,w){const d=document.createElement("div");d.className="m "+w;d.textContent=t;$("cb").appendChild(d);$("cb").scrollTop=1e9}
+function send(t){const i=$("ci"),x=t||i.value.trim();if(!x)return;i.value="";msg(x,"u");const r=reply(x);S.chat.push({w:"u",t:x},{w:"b",t:r});S.chat=S.chat.slice(-60);sv();setTimeout(()=>msg(r,"b"),350)}
+function cinit(){$("cb").innerHTML="";if(!S.chat.length)msg("Hi! 🌸 I am Mivi. I share general information, not diagnoses. What would you like to know?","b");S.chat.forEach(m=>msg(m.t,m.w));
+ $("cs").innerHTML=STR.map(s=>`<button class="chip" onclick="send('${s}')">${s}</button>`).join("")}
+
+/* JOURNAL / SETTINGS */
+function saveJ(){const t=$("jt").value.trim();if(!t){toast("Write a little first");return}S.j.unshift({d:$("jd").value||iso(),t});sv();$("jt").value="";jlist();toast("Saved 💌")}
+function jlist(){$("jd").value=$("jd").value||iso();$("jl").innerHTML=S.j.length?S.j.map((j,i)=>`<div class="row"><div><b>${fm(pd(j.d),1)}</b><p>${esc(j.t)}</p></div><button class="btn s sm" onclick="S.j.splice(${i},1);sv();jlist()">Delete</button></div>`).join(""):'<p class="mu">Start with one sentence about today.</p>'}
+function setfill(){$("sn").value=S.name;$("sa").value=S.age||"";$("sd").value=S.last;$("sc").value=S.cyc;$("sp").value=S.per}
+function saveSet(){const c=+$("sc").value,p=+$("sp").value;if(c<15||c>90||p<1||p>15){toast("Check cycle (15–90) and period (1–15) length");return}
+ S.name=$("sn").value.trim()||S.name;S.age=+$("sa").value||S.age;S.last=$("sd").value;S.cyc=c;S.per=p;sv();toast("Saved 🌸");home()}
+function exp(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:"application/json"}));a.download="mivi-data.json";a.click()}
+function wipe(){if(confirm("Permanently delete all Mivi data on this device?")){try{localStorage.removeItem(K)}catch(_){}location.reload()}}
+
+$("nav").insertAdjacentHTML("beforeend",PAGES.map(p=>`<button data-p="${p[0]}" onclick="go('${p[0]}')"><span>${p[1]}</span>${p[2]}</button>`).join(""));
+chipsInit();bub();mf();qz();mem();cinit();ap();$("ld").value=iso();$("jd").value=iso();
+document.querySelectorAll(".langsel").forEach(x=>x.value=S.lang||"en");
+new MutationObserver(()=>{if(!trBusy&&S.lang&&S.lang!=="en")tr()}).observe(document.body,{childList:true,subtree:true});
+authInit();
+go("today");if(NOAUTH)autoPreg();if(S.lang&&S.lang!=="en")tr();
+</script>
+</body>
+</html>
